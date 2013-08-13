@@ -1,0 +1,91 @@
+/*  ==========================================================================
+    Setup
+    ========================================================================== */
+
+    // @import "font"; // Custom fonts
+    @import "bootstrap"; // Custom Bootstrap loader
+
+/* ==========================================================================
+    WordPress Generated Classes
+    See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes
+    ========================================================================== */
+
+    .aligncenter { display: block; margin: 0 auto; }
+    .alignleft { float: left; }
+    .alignright { float: right; }
+    figure.alignnone { margin-left: 0; margin-right: 0; }
+   
+/*  ==========================================================================
+    Protoype colors
+    ========================================================================== */
+
+    @color1: #DD7E6B;
+    @color2: #A4C2F4;
+    @color3: #FFE599;
+    @color4: #B6D7A8;
+    @color5: #B4A7D6;
+    @color6: #D5A6BD;
+    @color7: #F9CB9C;
+    @color8: #EA9999;
+
+
+/*  ==========================================================================
+    Sample structure styles
+    ========================================================================== */
+
+    .sidebar,
+    .main {
+        min-height: 500px;
+        color: #333;
+    }
+
+    .content {
+        margin-bottom: 10px;
+    }
+
+    footer .row {
+        min-height: 100px;
+        background: @color4;
+    }
+
+    .left-sidebar {
+        background: @color1;
+    }
+    .main {
+        background: @color7;
+
+        .row {
+            div {
+                min-height: 150px;
+
+                &:first-child {
+                    background: @color5;
+                    min-height: 200px;
+
+                    & + div {
+                        background: @color6;
+
+                        & + div {
+                            background: @color2;
+
+                            & + div {
+                                background: @color8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .right-sidebar {
+        background: @color3;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .banner {
+        text-align: center;
+        margin-bottom: 20px;
+    }
