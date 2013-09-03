@@ -21,23 +21,13 @@ define('POST_EXCERPT_LENGTH', 40);
 function roots_main_class() {
     if (roots_display_sidebar()) {
         // Classes on pages with the sidebar
-        $class = 'col-sm-12 col-lg-8 col-lg-push-2';
+        $class = 'main-sidebar';
     } else {
         // Classes on full width pages
-        $class = 'col-lg-12';
+        $class = 'main-full';
     }
 
     return $class;
-}
-
-/**
- * .sidebar classes
- */
-function roots_left_sidebar_class() {
-    return 'col-xs-6 col-sm-6 col-lg-2 col-lg-pull-8';
-}
-function roots_right_sidebar_class() {
-    return 'col-xs-6 col-sm-6 col-lg-2';
 }
 
 /**

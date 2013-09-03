@@ -8,8 +8,12 @@ function roots_template_path() {
   return Roots_Wrapping::$main_template;
 }
 
-function roots_sidebar_path() {
-  return new Roots_Wrapping('templates/sidebar.php');
+function roots_left_sidebar_path() {
+  return new Roots_Wrapping('templates/sidebar-left.php');
+}
+
+function roots_right_sidebar_path() {
+  return new Roots_Wrapping('templates/sidebar-right.php');
 }
 
 class Roots_Wrapping {

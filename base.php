@@ -13,7 +13,7 @@
         <?php for ($i = 0; $i < 3; $i++): ?>
         <div class="content row">
             <div class="main <?php echo roots_main_class(); ?>" role="main">
-                <?php //include roots_template_path(); ?>
+                <?php include roots_template_path(); ?>
 
                 <div class="row">
 
@@ -25,28 +25,27 @@
                         <p>Feature Text</p>
                     </div>
 
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-6 col-xs-12">
                         <p>Inside Left Column</p>
                     </div>
 
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-6 col-xs-12">
                         <p>Inside Right Column</p>
                     </div>
 
                 </div>
             </div><!-- /.main -->
             
-            <?php //if (roots_display_sidebar()) : ?>
-                <aside class="sidebar left-sidebar col-xs-6 col-sm-6 col-lg-2 col-lg-pull-8" role="complementary">
-                    <p>Left Sidebar</p>
-                    <?php include roots_sidebar_path(); ?>
+            <?php if (roots_display_sidebar()) : ?>
+                <aside class="sidebar left-sidebar" role="complementary">
+                    <?php include roots_right_sidebar_path(); ?>
                 </aside><!-- /.left-sidebar -->
 
-                <aside class="sidebar right-sidebar col-xs-6 col-sm-6 col-lg-2" role="complementary">
-                    <p>Right Sidebar</p>
-                    <?php include roots_sidebar_path(); ?>
+                <aside class="sidebar right-sidebar" role="complementary">
+                    <?php include roots_left_sidebar_path(); ?>
                 </aside><!-- /.right-sidebar -->
-            <?php// endif; ?>
+            <?php endif; ?>
+
         </div><!-- /.content -->
         <?php endfor; ?>
     </div><!-- /.wrap -->
