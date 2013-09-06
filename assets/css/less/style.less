@@ -30,14 +30,20 @@
 
 
 /*  ==========================================================================
-    Sample structure styles
+    Utility Classes
     ========================================================================== */
 
-    .sidebar,
-    .main {
-        min-height: 500px;
-        color: #333;
+    .make-full {
+        .make-xs-column(12);
+        .make-sm-column(12);
+        .make-md-column(12);
+        .make-lg-column(12);
     }
+
+
+/*  ==========================================================================
+    Sample structure styles
+    ========================================================================== */
 
     .content {
         margin-bottom: 10px;
@@ -51,38 +57,14 @@
     .left-sidebar {
         background: @color1;
     }
-    .main {
-        background: @color7;
-
-        .row {
-            div {
-                min-height: 150px;
-
-                &:first-child {
-                    background: @color5;
-                    min-height: 200px;
-
-                    & + div {
-                        background: @color6;
-
-                        & + div {
-                            background: @color2;
-
-                            & + div {
-                                background: @color8;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
     .right-sidebar {
         background: @color3;
     }
 
     img {
         max-width: 100%;
+        height: auto;
     }
 
     .banner {
@@ -97,16 +79,15 @@
 
     .main {
         &.main-full {
-            .make-xs-column(12);
-            .make-sm-column(12);
-            .make-md-column(12);
-            .make-lg-column(12);
+            .make-full;
         }
         &.main-sidebar {
             .make-xs-column(12);
             .make-sm-column(8);
             .make-md-column(8);
             .make-lg-column(8);
+            .make-sm-column-push(2);
+            .make-md-column-push(2);
             .make-lg-column-push(2);
         }
     }
@@ -118,6 +99,75 @@
         .make-lg-column(2);
 
         &.left-sidebar {
+            .make-sm-column-pull(8);
+            .make-md-column-pull(8);
             .make-lg-column-pull(8);
+        }
+    }
+
+    // The feature and inner columns on the blog and archive pages
+    .main {
+        .row {
+            article {
+                .make-xs-column(12);
+                .make-sm-column(6);
+                .make-md-column(6);
+                .make-lg-column(6);
+
+                &.feature-list-item {
+                    .make-full;
+
+                    & + article,
+                    & + article + article + article {
+                        clear: left;
+                    }
+                }
+
+                &.regular-list-item {
+                    .article-inner {
+                        .make-row();
+
+                        .media-object {
+                            .make-xs-column(3);
+                            .make-sm-column(4);
+                            .make-md-column(4);
+                            .make-lg-column(4);
+                            padding-right: 0;
+                        }
+                        .media-body {
+                            .make-xs-column(9);
+                            .make-sm-column(8);
+                            .make-md-column(8);
+                            .make-lg-column(8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    article {
+        h2 {
+            margin-top: 0;
+
+        }
+
+        .media-object {
+            margin-bottom: 1em;
+        }
+    }
+
+    .archive-link {
+        .make-full;
+    }
+    
+
+/*  ==========================================================================
+    Site Grid
+    ========================================================================== */
+
+    .home {
+        .page-header {
+            .hide;
         }
     }

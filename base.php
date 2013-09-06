@@ -10,30 +10,9 @@
 
     <div class="wrap container" role="document">
 
-        <?php for ($i = 0; $i < 3; $i++): ?>
         <div class="content row">
             <div class="main <?php echo roots_main_class(); ?>" role="main">
                 <?php include roots_template_path(); ?>
-
-                <div class="row">
-
-                    <div class="col-lg-12">
-                        <p>Feature Image</p>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <p>Feature Text</p>
-                    </div>
-
-                    <div class="col-lg-6 col-xs-12">
-                        <p>Inside Left Column</p>
-                    </div>
-
-                    <div class="col-lg-6 col-xs-12">
-                        <p>Inside Right Column</p>
-                    </div>
-
-                </div>
             </div><!-- /.main -->
             
             <?php if (roots_display_sidebar()) : ?>
@@ -47,7 +26,6 @@
             <?php endif; ?>
 
         </div><!-- /.content -->
-        <?php endfor; ?>
     </div><!-- /.wrap -->
 
     <?php get_template_part('templates/footer'); ?>
