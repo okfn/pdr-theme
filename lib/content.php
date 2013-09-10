@@ -56,7 +56,7 @@
     	global $collections;
 
     	$global_options = array(
-			'hierarchical'          => false,
+			'hierarchical'          => true,
 			'show_ui'               => true,
 			'show_admin_column'     => true,
 			'update_count_callback' => '_update_post_term_count',
@@ -189,7 +189,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'rights_label' ),
 		) );
-		register_taxonomy( 'rights_label', array($collections), $args );
+		register_taxonomy( 'rights_label', $collections, $args );
 
 
 		// Content
