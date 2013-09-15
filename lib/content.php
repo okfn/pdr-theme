@@ -56,7 +56,7 @@
     	global $collections;
 
     	$global_options = array(
-			'hierarchical'          => false,
+			'hierarchical'          => true,
 			'show_ui'               => true,
 			'show_admin_column'     => true,
 			'update_count_callback' => '_update_post_term_count',
