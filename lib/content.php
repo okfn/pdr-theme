@@ -189,7 +189,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'rights_label' ),
 		) );
-		register_taxonomy( 'rights_label', array($collections), $args );
+		register_taxonomy( 'rights_label', $collections, $args );
 
 
 		// Content
