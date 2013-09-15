@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <a class="brand" href="<?php echo home_url(); ?>/">
-                <img src="<?php echo get_template_directory_uri() ?>/assets/img/pdr-logo.png" />
+                <img src="<?php echo get_template_directory_uri() ?>/assets/img/pdr-logo.gif" />
             </a>
             <nav class="nav-main" role="navigation">
                 <?php

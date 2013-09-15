@@ -40,6 +40,12 @@
         .make-lg-column(12);
     }
 
+    .no-hover {
+        &:hover, &:focus, &:active {
+            text-decoration: none;
+        }
+    }
+
 
 /*  ==========================================================================
     Sample structure styles
@@ -93,6 +99,7 @@
     }
 
     .sidebar {
+        border: 1px solid @gray-light;
         .make-xs-column(6);
         .make-sm-column(2);
         .make-md-column(2);
@@ -115,7 +122,11 @@
                 .make-lg-column(6);
 
                 &.feature-list-item {
-                    .make-full;
+                    .make-full;                   
+
+                    .media-object {
+                        text-align: center;
+                    }
 
                     & + article,
                     & + article + article + article {
@@ -126,6 +137,8 @@
                 &.regular-list-item {
                     .article-inner {
                         .make-row();
+                        margin-left: 0;
+                        margin-right: 0;
 
                         .media-object {
                             .make-xs-column(3);
@@ -133,12 +146,14 @@
                             .make-md-column(4);
                             .make-lg-column(4);
                             padding-right: 0;
+                            padding-left: 0;
                         }
                         .media-body {
                             .make-xs-column(9);
                             .make-sm-column(8);
                             .make-md-column(8);
                             .make-lg-column(8);
+                            padding-right: 0;
                         }
                     }
                 }
@@ -146,28 +161,83 @@
         }
     }
 
-    article {
-        h2 {
-            margin-top: 0;
-
-        }
-
-        .media-object {
-            margin-bottom: 1em;
-        }
-    }
-
-    .archive-link {
-        .make-full;
-    }
-    
 
 /*  ==========================================================================
-    Site Grid
+    Homepage Styles
     ========================================================================== */
 
     .home {
         .page-header {
             .hide;
+        }
+
+        .wrap {
+            & > .row {
+                margin-bottom: 3em;
+            }
+        } 
+    }
+
+    article {
+        h2 {
+            margin-top: 0;
+        }
+
+        .media-object {
+            margin-bottom: 1em;
+        }
+
+        .article-inner {
+            border-bottom: 1px solid @gray-light;
+        }
+
+        &.list-item-3, &.list-item-4 {
+            .article-inner {
+                border-bottom: none;
+            }
+            
+        }
+
+        &.regular-list-item {
+
+            .entry-title {
+                font-size: 1em;
+                font-weight: bold;
+                font-style: italic;
+                text-transform: uppercase;
+                margin-bottom: .1em;
+            }
+            .entry-summary {
+                font-size: .9em;
+            }
+        }
+    }
+
+    .archive-link-container {
+        .make-full;
+
+        .archive-link {
+            .no-hover;
+            display: block;
+            background: lighten(@gray-light, 25%);
+            text-align: center;
+            text-transform: lowercase;
+            font-style: italic;
+            line-height: 1.4em;
+        }
+    }
+
+    .collection-header {
+        margin: 0 0 2em;
+        height: 1.2em;
+        border-bottom: 1px solid @gray;
+        text-align: center;
+
+        h3 {
+            margin: 0;
+            display: inline-block;
+            background: #fff;
+            padding: 0 1em;
+            font-style: italic;
         }
     }

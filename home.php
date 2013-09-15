@@ -1,1 +1,0 @@
-<?php do_action('homepage_lists', $post_type) ?>

@@ -1,4 +1,4 @@
-<?php get_template_part('templates/page', 'header'); ?>
+<?php //get_template_part('templates/page', 'header'); ?>
 
 <div class="row">
     <?php if (!have_posts()) : ?>
@@ -14,6 +14,8 @@
     <?php endwhile; ?>
     
     <?php if ($wp_query->max_num_pages > 1) :  ?>
-        <a class="archive-link" href="<?php echo get_post_type_archive_link( $wp_query->query['post_type'] ) ?>">See more</a>
+        <div class="archive-link-container">
+            <a class="archive-link" href="<?php echo get_post_type_archive_link( $wp_query->query['post_type'] ) ?>">See more</a>
+        </div>
     <?php endif; ?>
 </div>

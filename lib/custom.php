@@ -67,18 +67,17 @@
     Homepage Lists
     ========================================================================== */
 
-	add_action('homepage_lists', 'homepage_lists', 10);
+	add_action('after_content', 'homepage_lists', 10);
     function homepage_lists() {
-    	global $wp_query;
+    	global $wp_query, $collections;
     	$query_holder = $wp_query;
 
-    	foreach ( array('post', 'image', 'text') as $post_type ) {
+    	foreach ( $collections as $post_type ) {
 	    	$wp_query = new WP_Query(array(
 	    		'post_type' => $post_type,
 	    		'posts_per_page' => 5
 			));
-			get_template_part( 'templates/collection', 'header' );
-			get_template_part( 'index' );
+			get_template_part( 'templates/homepage', 'collection' );
 		}
 
 		$wp_query = $query_holder;
@@ -89,7 +88,7 @@
     	return 45;
     }
     function standard_exerpt_length( $length ) {
-		return 20;
+		return 15;
 	}
 
 	add_filter( 'excerpt_length', 'standard_exerpt_length', 999 );
@@ -102,3 +101,29 @@
     function unset_feature_excerpt_length() {
     	remove_filter( 'excerpt_length', 'feature_excerpt_length', 999 );
     }
+
+    // Collections Sidebars
+    add_action('init', 'collections_sidebars_init');
+    function collections_sidebars_init() {
+    	global $collections;
+
+    	foreach ($collections as $collection) {
+    		register_sidebar(array(
+		        'name'          => __(sprintf('%s Left Sidebar', ucfirst($collection) ), 'roots'),
+		        'id'            => sprintf('%s-left', $collection),
+		        'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+		        'after_widget'  => '</div></section>',
+		        'before_title'  => '<h3>',
+		        'after_title'   => '</h3>',
+		    ));
+
+		    register_sidebar(array(
+		        'name'          => __(sprintf('%s Right Sidebar', ucfirst($collection) ), 'roots'),
+		        'id'            => sprintf('%s-right', $collection),
+		        'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+		        'after_widget'  => '</div></section>',
+		        'before_title'  => '<h3>',
+		        'after_title'   => '</h3>',
+		    ));
+    	}
+	}

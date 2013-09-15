@@ -10,7 +10,9 @@
 
     <div class="wrap container" role="document">
 
+        <?php do_action('before_content') ?>
         <div class="content row">
+            <?php do_action('inside_before_content') ?>
             <div class="main <?php echo roots_main_class(); ?>" role="main">
                 <?php include roots_template_path(); ?>
             </div><!-- /.main -->
@@ -25,7 +27,10 @@
                 </aside><!-- /.right-sidebar -->
             <?php endif; ?>
 
+            <?php do_action('inside_after_content') ?>
         </div><!-- /.content -->
+        <?php do_action('after_content') ?>
+        
     </div><!-- /.wrap -->
 
     <?php get_template_part('templates/footer'); ?>
