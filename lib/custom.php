@@ -46,7 +46,7 @@
 		$key = get_article_list_item_number($post, $wp_query->posts);
 		$in_a_set = 5;
 		
-		if ( ( ( $key >= $in_a_set ) && ( $key % 5 ) === 0 ) || $key == 0 ) 
+		if ( !show_collection_sidebars() && ( ( ( $key >= $in_a_set ) && ( $key % 5 ) === 0 ) || $key == 0 ) )
 			return true;
 		else return false;
 	}
@@ -69,19 +69,21 @@
 
 	add_action('after_content', 'homepage_lists', 10);
     function homepage_lists() {
-    	global $wp_query, $collections;
-    	$query_holder = $wp_query;
+    	if ( is_front_page() ) {
+	    	global $wp_query, $collections;
+	    	$query_holder = $wp_query;
 
-    	foreach ( $collections as $post_type ) {
-	    	$wp_query = new WP_Query(array(
-	    		'post_type' => $post_type,
-	    		'posts_per_page' => 5
-			));
-			get_template_part( 'templates/homepage', 'collection' );
+	    	foreach ( $collections as $post_type ) {
+		    	$wp_query = new WP_Query(array(
+		    		'post_type' => $post_type,
+		    		'posts_per_page' => 5
+				));
+				get_template_part( 'templates/homepage', 'collection' );
+			}
+
+			$wp_query = $query_holder;
+			wp_reset_postdata();
 		}
-
-		$wp_query = $query_holder;
-		wp_reset_postdata();
     }
 
     function feature_excerpt_length() {
@@ -126,4 +128,51 @@
 		        'after_title'   => '</h3>',
 		    ));
     	}
+	}
+
+
+	// Change output of WP-PageNavi to work with Bootstrap pagination styles
+	// http://calebserna.com/bootstrap-wordpress-pagination-wp-pagenavi/
+	add_filter( 'wp_pagenavi', 'bootstrap_pagination', 10, 2 );
+	function bootstrap_pagination($html) {
+		$out = '';
+		$out = str_replace("<div","",$html);
+		$out = str_replace("class='wp-pagenavi'>","",$out);
+		$out = str_replace("<a","<li><a",$out);
+		$out = str_replace("</a>","</a></li>",$out);
+		$out = str_replace("<span","<li><span",$out);  
+		$out = str_replace("</span>","</span></li>",$out);
+		$out = str_replace("</div>","",$out);
+		return '<ul class="pagination">'.$out.'</ul>';
+	}
+
+	add_action('after_achive', 'show_pagination');
+	function show_pagination() {
+		get_template_part('templates/pagination');
+	}
+
+
+	add_action( 'pre_get_posts', 'archive_posts_per_page', 1 );
+	function archive_posts_per_page( $query ) {
+	    if ( is_admin() || ! $query->is_main_query() )
+	        return;
+
+	    if ( is_archive( ) ) {
+	        $query->set( 'posts_per_page', 8 );
+	        return;
+	    }
+	}
+
+
+	add_action('before_achive', 'taxonomy_nav');
+	function taxonomy_nav() {
+		$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
+		include(locate_template('templates/taxonomy-nav.php'));
+	}
+
+	function show_collection_sidebars() {
+		if ( is_front_page() || !is_main_query() ) 
+			return false;
+		else 
+			return true;
 	}

@@ -1,6 +1,6 @@
 (function($) {
 
-	$('.main .row').each(function(){
+	$('.home .main .row').each(function(){
 		$(this).find('article:not(:first-child) .article-inner').equalHeights();
 	});
 

@@ -3,7 +3,7 @@
 	<div class="article-inner">
 		<div class="media-object">
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( $size = is_feature_item() ? 'pdr_large' : 'thumbnail' ); ?>
+				<?php the_post_thumbnail( $size = ( is_feature_item() || is_archive() ) ? 'pdr_large' : 'thumbnail' ); ?>
 			</a>
 		</div>
 		<div class="media-body">
