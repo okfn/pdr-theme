@@ -59,7 +59,8 @@
     add_action('init', 'pdr_image_sizes');
     function pdr_image_sizes() {
     	add_image_size( 'pdr_main', 540, 280, true );
-    	add_image_size( 'pdr_large', 750, 389, true );
+    	add_image_size( 'pdr_large', 750, 420, true );
+    	add_image_size( 'pdr_collection_large', 750, 297, true );
     }
 
 
@@ -70,13 +71,15 @@
 	add_action('after_content', 'homepage_lists', 10);
     function homepage_lists() {
     	if ( is_front_page() ) {
-	    	global $wp_query, $collections;
+	    	global $wp_query;
 	    	$query_holder = $wp_query;
+	    	$mediums = get_terms( 'medium' );
 
-	    	foreach ( $collections as $post_type ) {
+	    	foreach ( $mediums as $medium ) {
 		    	$wp_query = new WP_Query(array(
-		    		'post_type' => $post_type,
-		    		'posts_per_page' => 5
+		    		'post_type' => 'collections',
+		    		'posts_per_page' => 5,
+		    		'medium' => $medium->slug
 				));
 				get_template_part( 'templates/homepage', 'collection' );
 			}
@@ -90,7 +93,10 @@
     	return 45;
     }
     function standard_exerpt_length( $length ) {
-		return 15;
+    	global $post;
+    	$length = 14 - str_word_count($post->post_title, 0);
+    	if ( $length < 0 ) $length = 0;
+		return $length;
 	}
 
 	add_filter( 'excerpt_length', 'standard_exerpt_length', 999 );
@@ -107,12 +113,12 @@
     // Collections Sidebars
     add_action('init', 'collections_sidebars_init');
     function collections_sidebars_init() {
-    	global $collections;
+    	$mediums = get_terms( 'medium' );
 
-    	foreach ($collections as $collection) {
+    	foreach ($mediums as $medium) {
     		register_sidebar(array(
-		        'name'          => __(sprintf('%s Left Sidebar', ucfirst($collection) ), 'roots'),
-		        'id'            => sprintf('%s-left', $collection),
+		        'name'          => __(sprintf('%s Left Sidebar', ucfirst($medium->slug) ), 'roots'),
+		        'id'            => sprintf('%s-left', $medium->slug),
 		        'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
 		        'after_widget'  => '</div></section>',
 		        'before_title'  => '<h3>',
@@ -120,14 +126,23 @@
 		    ));
 
 		    register_sidebar(array(
-		        'name'          => __(sprintf('%s Right Sidebar', ucfirst($collection) ), 'roots'),
-		        'id'            => sprintf('%s-right', $collection),
+		        'name'          => __(sprintf('%s Right Sidebar', ucfirst($medium->slug) ), 'roots'),
+		        'id'            => sprintf('%s-right', $medium->slug),
 		        'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
 		        'after_widget'  => '</div></section>',
 		        'before_title'  => '<h3>',
 		        'after_title'   => '</h3>',
 		    ));
     	}
+
+    	register_sidebar(array(
+	        'name'          => __( 'Collections Landing', 'roots'),
+	        'id'            => 'collections-landing',
+	        'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+	        'after_widget'  => '</div></section>',
+	        'before_title'  => '<h3>',
+	        'after_title'   => '</h3>',
+	    ));
 	}
 
 
@@ -148,7 +163,8 @@
 
 	add_action('after_achive', 'show_pagination');
 	function show_pagination() {
-		get_template_part('templates/pagination');
+		if (!is_post_type_archive('collections'))
+			get_template_part('templates/pagination');
 	}
 
 
@@ -166,8 +182,10 @@
 
 	add_action('before_achive', 'taxonomy_nav');
 	function taxonomy_nav() {
-		$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
-		include(locate_template('templates/taxonomy-nav.php'));
+		if ( !is_post_type_archive('collections') ) {
+			$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
+			include(locate_template('templates/taxonomy-nav.php'));
+		}
 	}
 
 	function show_collection_sidebars() {
@@ -175,4 +193,27 @@
 			return false;
 		else 
 			return true;
+	}
+
+	add_action('collections_archive_content', 'collections_entries');
+	function collections_entries() {
+		if ( !is_post_type_archive('collections') ) {
+			while (have_posts()) : the_post();
+	        	get_template_part('templates/content', get_post_format());
+			endwhile;
+		}
+	}
+
+	add_action('collections_archive_content', 'collections_landing');
+	function collections_landing() {
+		if ( is_post_type_archive('collections') ) {
+			get_template_part('templates/collection', 'landing');
+		}
+	}
+
+	add_action('before_achive', 'collections_landing_sidebar');
+	function collections_landing_sidebar() {
+		if ( is_post_type_archive('collections') ) {
+			dynamic_sidebar('collections-landing');
+		}
 	}

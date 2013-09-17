@@ -4,7 +4,6 @@
             <a class="brand" href="<?php echo home_url(); ?>/">
                 <img src="<?php echo get_template_directory_uri() ?>/assets/img/pdr-logo.gif" />
             </a>
-            
         </div>
 
         <div class="row">

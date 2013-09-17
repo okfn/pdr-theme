@@ -3,7 +3,44 @@
     Custom Post Types
     ========================================================================== */
 
-    $collections = array('image', 'text', 'film', 'audio');
+    // $collections = array('image', 'text', 'film', 'audio');
+
+    add_action('init', 'init_pdr_collections');
+	function init_pdr_collections() {
+
+		$labels = array(
+			'name' => 'Collections',
+			'singular_name' => 'Collection',
+			'add_new' => 'Add New',
+			'add_new_item' => 'Add New Collection',
+			'edit_item' => 'Edit Collection',
+			'new_item' => 'New Collection',
+			'all_items' => 'All Collections',
+			'view_item' => 'View Collection',
+			'search_items' => 'Search Collections',
+			'not_found' =>  'No collections found',
+			'not_found_in_trash' => 'No collections found in trash', 
+			'parent_item_colon' => '',
+			'menu_name' => 'Collections'
+		);
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'publicly_queryable' => true,
+			'show_ui' => true, 
+			'show_in_menu' => true, 
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'collections' ),
+			'capability_type' => 'post',
+			'has_archive' => true, 
+			'hierarchical' => false,
+			'menu_position' => null,
+			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+		); 
+		register_post_type( 'collections', $args );
+	}
+
+	$collections = array('image', 'text', 'film', 'audio');
 
     add_action('init', 'init_pdr_cpt');
 	function init_pdr_cpt() {
@@ -53,7 +90,7 @@
     add_action('init', 'init_pdr_taxonomies');
 
     function init_pdr_taxonomies() {
-    	global $collections;
+    	// global $collections;
 
     	$global_options = array(
 			'hierarchical'          => true,
@@ -63,60 +100,59 @@
 			'query_var'             => true,
 		);
 
+		// Time (Centuries)
+		$labels = array(
+			'name'                       => _x( 'Medium', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Medium', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Mediums' ),
+			'popular_items'              => __( 'Popular Mediums' ),
+			'all_items'                  => __( 'All Mediums' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Medium' ),
+			'update_item'                => __( 'Update Medium' ),
+			'add_new_item'               => __( 'Add New Medium' ),
+			'new_item_name'              => __( 'New Medium Name' ),
+			'separate_items_with_commas' => __( 'Separate mediums with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove mediums' ),
+			'choose_from_most_used'      => __( 'Choose from the most used mediums' ),
+			'not_found'                  => __( 'No mediums found.' ),
+			'menu_name'                  => __( 'Medium' ),
+		);
+		$args = array_merge($global_options, array(
+			'labels'                => $labels,
+			'rewrite'               => array( 'slug' => 'medium' ),
+		) );
+		register_taxonomy( 'medium', 'collections', $args );
+
     	// Time (Centuries)
 		$labels = array(
-			'name'                       => _x( 'Time (Centuries)', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Century', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Centuries' ),
-			'popular_items'              => __( 'Popular Centuries' ),
-			'all_items'                  => __( 'All Centuries' ),
+			'name'                       => _x( 'Time', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Time', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Time' ),
+			'popular_items'              => __( 'Popular Time' ),
+			'all_items'                  => __( 'All Time' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Century' ),
-			'update_item'                => __( 'Update Century' ),
-			'add_new_item'               => __( 'Add New Century' ),
-			'new_item_name'              => __( 'New Century Name' ),
-			'separate_items_with_commas' => __( 'Separate centuries with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove centuries' ),
-			'choose_from_most_used'      => __( 'Choose from the most used centuries' ),
-			'not_found'                  => __( 'No centuries found.' ),
-			'menu_name'                  => __( 'Time (Centuries)' ),
+			'edit_item'                  => __( 'Edit Time' ),
+			'update_item'                => __( 'Update Time' ),
+			'add_new_item'               => __( 'Add New Time' ),
+			'new_item_name'              => __( 'New Time Name' ),
+			'separate_items_with_commas' => __( 'Separate time with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove time' ),
+			'choose_from_most_used'      => __( 'Choose from the most used time' ),
+			'not_found'                  => __( 'No time found.' ),
+			'menu_name'                  => __( 'Time' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
-			'rewrite'               => array( 'slug' => 'time_century' ),
+			'rewrite'               => array( 'slug' => 'time' ),
 		) );
-		register_taxonomy( 'time_century', array('image', 'text'), $args );
-
-		// Time (Decades)
-		$labels = array(
-			'name'                       => _x( 'Time (Decades)', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Decade', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Decades' ),
-			'popular_items'              => __( 'Popular Decades' ),
-			'all_items'                  => __( 'All Decades' ),
-			'parent_item'                => null,
-			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Decade' ),
-			'update_item'                => __( 'Update Decade' ),
-			'add_new_item'               => __( 'Add New Decade' ),
-			'new_item_name'              => __( 'New Decade Name' ),
-			'separate_items_with_commas' => __( 'Separate decade with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove decade' ),
-			'choose_from_most_used'      => __( 'Choose from the most used decades' ),
-			'not_found'                  => __( 'No decades found.' ),
-			'menu_name'                  => __( 'Time (Decades)' ),
-		);
-		$args = array_merge($global_options, array(
-			'labels'                => $labels,
-			'rewrite'               => array( 'slug' => 'time_decade' ),
-		) );
-		register_taxonomy( 'time_decade', array('film', 'audio'), $args );
-
+		register_taxonomy( 'time', 'collections', $args );
 
 		// Styles
 		$labels = array(
-			'name'                       => _x( 'Styles', 'taxonomy general name' ),
+			'name'                       => _x( 'Style', 'taxonomy general name' ),
 			'singular_name'              => _x( 'Style', 'taxonomy singular name' ),
 			'search_items'               => __( 'Search Styles' ),
 			'popular_items'              => __( 'Popular Styles' ),
@@ -131,18 +167,18 @@
 			'add_or_remove_items'        => __( 'Add or remove styles' ),
 			'choose_from_most_used'      => __( 'Choose from the most used styles' ),
 			'not_found'                  => __( 'No styles found.' ),
-			'menu_name'                  => __( 'Styles' ),
+			'menu_name'                  => __( 'Style' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'style' ),
 		) );
-		register_taxonomy( 'style', array('image'), $args );
+		register_taxonomy( 'style', 'collections', $args );
 
 
 		// Genres
 		$labels = array(
-			'name'                       => _x( 'Genres', 'taxonomy general name' ),
+			'name'                       => _x( 'Genre', 'taxonomy general name' ),
 			'singular_name'              => _x( 'Genre', 'taxonomy singular name' ),
 			'search_items'               => __( 'Search Genres' ),
 			'popular_items'              => __( 'Popular Genres' ),
@@ -157,13 +193,13 @@
 			'add_or_remove_items'        => __( 'Add or remove genres' ),
 			'choose_from_most_used'      => __( 'Choose from the most used genres' ),
 			'not_found'                  => __( 'No genres found.' ),
-			'menu_name'                  => __( 'Genres' ),
+			'menu_name'                  => __( 'Genre' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'genre' ),
 		) );
-		register_taxonomy( 'genre', array('audio', 'text', 'film'), $args );
+		register_taxonomy( 'genre', 'collections', $args );
 
 
 		// Rights Labelling
@@ -189,7 +225,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'rights_label' ),
 		) );
-		register_taxonomy( 'rights_label', $collections, $args );
+		register_taxonomy( 'rights_label', 'collections', $args );
 
 
 		// Content
@@ -215,11 +251,11 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'content' ),
 		) );
-		register_taxonomy( 'content', array('image'), $args );
+		register_taxonomy( 'content', 'collections', $args );
 
 		// Types
 		$labels = array(
-			'name'                       => _x( 'Types', 'taxonomy general name' ),
+			'name'                       => _x( 'Type', 'taxonomy general name' ),
 			'singular_name'              => _x( 'Type', 'taxonomy singular name' ),
 			'search_items'               => __( 'Search Types' ),
 			'popular_items'              => __( 'Popular Types' ),
@@ -234,13 +270,13 @@
 			'add_or_remove_items'        => __( 'Add or remove types' ),
 			'choose_from_most_used'      => __( 'Choose from the most used types' ),
 			'not_found'                  => __( 'No types found.' ),
-			'menu_name'                  => __( 'Types' ),
+			'menu_name'                  => __( 'Type' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'type' ),
 		) );
-		register_taxonomy( 'type', array('film'), $args );
+		register_taxonomy( 'type', 'collections', $args );
 
 
     }

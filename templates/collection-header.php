@@ -1,10 +1,8 @@
 <?php 
-
-if ( in_array( $post_type = get_query_var('post_type'), get_post_types( array('_builtin' => false) ) ) ) :
-	$post_type = get_post_type_object($post_type);
+if ( $medium = get_term_by( 'slug', get_query_var('medium'), 'medium') ) :
 	?>
 	<div class="collection-header">
-		<h3><?php _e( sprintf("from the %s Collection", $post_type->label) ); ?></h3>
+		<h3><?php _e( sprintf("from the %ss Collection", $medium->name) ); ?></h3>
 	</div>
 	<?php
 endif;

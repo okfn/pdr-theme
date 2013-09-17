@@ -13,13 +13,33 @@
         }
     }
 
-    .nav-main {
-        ul {
-            li {
-                display: inline-block;
+    .nav-main ul li, .nav li {
+        display: inline-block;
+    }
+
+    .taxonomy-nav .nav {
+        li {
+            border-right: 1px solid @gray;
+            float: none;
+            padding: 0 .5em;
+            line-height: 1em;
+
+            a {
+                line-height: 1em;
             }
         }
+
+        .dropdown {
+            position: static;
+        }
+
+        .dropdown-menu {
+            background: none;
+            border: none;
+            .box-shadow(none);
+        }
     }
+
 }
 
 /* Medium devices (desktops, 992px and up) */

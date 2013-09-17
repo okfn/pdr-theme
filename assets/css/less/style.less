@@ -100,6 +100,7 @@
 
     .sidebar {
         border: 1px solid @gray-light;
+        min-height: 100px;
         .make-xs-column(6);
         .make-sm-column(2);
         .make-md-column(2);
@@ -228,6 +229,7 @@
 
     .archive-link-container {
         .make-full;
+        margin-bottom: 1em;
 
         .archive-link {
             .no-hover;
@@ -236,12 +238,12 @@
             text-align: center;
             text-transform: lowercase;
             font-style: italic;
-            line-height: 1.4em;
+            line-height: 1.9em;
         }
     }
 
     .collection-header {
-        margin: 0 0 2em;
+        margin: -16px 0 2em;
         height: 1.2em;
         border-bottom: 1px solid @gray;
         text-align: center;
@@ -252,6 +254,33 @@
             background: #fff;
             padding: 0 1em;
             font-style: italic;
+        }
+    }
+
+    &.home-collection {
+        .feature-list-item {
+            .media-body {
+                .hide;
+            }
+            .media-object {
+                position: relative;
+
+                header {
+                    background: @gray-dark;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    background-color: rgba(0,0,0,0.4);
+                    display: block;
+                    text-align: center;
+
+                    h2 {
+                        margin-bottom: .1em;
+                        line-height: 1.2em;
+                        color: #fff;
+                    }
+                }
+            }
         }
     }
 
@@ -275,28 +304,57 @@
     .taxonomy-nav {
         margin: 2em 0;
         text-align: center;
+        
         ul {
-            margin: 0 0 1em;
+            margin: 0 0 4em;
             padding: 0;
+            width: 100%;
 
+            &.taxonomies {
+                position: relative;
+            }
+
+        }
+
+        .nav {
             li {
-                display: inline-block;
                 text-transform: uppercase;
                 font-size: 1.5em;
-                line-height: 1em;
-                padding: 0 .5em;
-                border-right: 1px solid @gray;
+                line-height: 2em;
 
                 &:last-child {
                     border-right: none;
                 }
 
                 a {
-                    color: @gray;
+                    padding: 0;
+                    line-height: 2em;
                 }
-                
+            }
+
+            .open > a, 
+            .open > a:hover, 
+            .open > a:focus,
+            a:hover,
+            a:focus {
+                background: none;
+                color: @gray-dark;
+            }
+
+            a {
+                color: @gray;
             }
         }
+
+        .navbar-nav .open .dropdown-menu > li > a, 
+        .navbar-nav .open .dropdown-menu .dropdown-header {
+            padding: 0;
+        }
+
+        .dropdown.open {
+            margin-bottom: 1em;
+        }
+                
     }
 
 
@@ -327,5 +385,38 @@
         }
     }
 
+
+    .collections-landing {
+        h3 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .mediums, .times {
+            .make-row;
+            margin-bottom: 2em;
+            & > div {
+                .make-xs-column(6);
+                .make-sm-column(3);
+                margin-bottom: 2em;
+
+                a {
+                    position: relative;
+                    display: block;
+
+                    span {
+                        display: block;
+                        position: absolute;
+                        width: 100%;
+                        top: 50%;
+                        margin-top: -.8em;
+                        font-size: 2em;
+                        color: #fff;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
 
     @import "responsive"; // Allow responsive tweaks to override last
