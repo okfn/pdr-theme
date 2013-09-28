@@ -1,6 +1,6 @@
-<div class="collections-landing <?php printf('collections-landing-%s', $tax->name) ?>">
-	<div class="inner">
-		<h3><?php _e(sprintf('Browse by %s', $tax->label), 'roots'); ?></h3>
+<div class="collections-landing-sources collections-landing">
+	<?php foreach ( array('source') as $tax ): $tax = get_taxonomy($tax); ?>
+	<h3><?php _e(sprintf('Browse by %s', $tax->label), 'roots'); ?></h3>
 		<div class="<?php printf('%ss', $tax->name) ?>">
 			<?php foreach ( get_terms( $tax->name ) as $term): ?>
 				<div class="<?php echo $tax->name ?>">
@@ -13,5 +13,5 @@
 				</div>
 			<?php endforeach; ?>
 		</div>
-	</div>
+	<?php endforeach; ?>
 </div>

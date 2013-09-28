@@ -19,11 +19,11 @@
             
             <?php if (roots_display_sidebar()) : ?>
                 <aside class="sidebar left-sidebar" role="complementary">
-                    <?php include roots_right_sidebar_path(); ?>
+                    <?php include roots_left_sidebar_path(); ?>
                 </aside><!-- /.left-sidebar -->
 
                 <aside class="sidebar right-sidebar" role="complementary">
-                    <?php include roots_left_sidebar_path(); ?>
+                    <?php include roots_right_sidebar_path(); ?>
                 </aside><!-- /.right-sidebar -->
             <?php endif; ?>
 

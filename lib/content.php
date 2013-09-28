@@ -278,5 +278,71 @@
 		) );
 		register_taxonomy( 'type', 'collections', $args );
 
+		// Sources
+		$labels = array(
+			'name'                       => _x( 'Source', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Source', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Sources' ),
+			'popular_items'              => __( 'Popular Sources' ),
+			'all_items'                  => __( 'All Sources' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Source' ),
+			'update_item'                => __( 'Update Source' ),
+			'add_new_item'               => __( 'Add New Source' ),
+			'new_item_name'              => __( 'New Source Name' ),
+			'separate_items_with_commas' => __( 'Separate sources with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove sources' ),
+			'choose_from_most_used'      => __( 'Choose from the most used sources' ),
+			'not_found'                  => __( 'No sources found.' ),
+			'menu_name'                  => __( 'Sources' ),
+		);
+		$args = array_merge($global_options, array(
+			'labels'                => $labels,
+			'rewrite'               => array( 'slug' => 'source' ),
+		) );
+		register_taxonomy( 'source', 'collections', $args );
 
+
+		// Collections Tags
+		// $labels = array(
+		// 	'name'                       => _x( 'Tags', 'taxonomy general name' ),
+		// 	'singular_name'              => _x( 'Tags', 'taxonomy singular name' ),
+		// 	'search_items'               => __( 'Search Tags' ),
+		// 	'popular_items'              => __( 'Popular Tags' ),
+		// 	'all_items'                  => __( 'All Tags' ),
+		// 	'parent_item'                => null,
+		// 	'parent_item_colon'          => null,
+		// 	'edit_item'                  => __( 'Edit Tag' ),
+		// 	'update_item'                => __( 'Update Tag' ),
+		// 	'add_new_item'               => __( 'Add New Tag' ),
+		// 	'new_item_name'              => __( 'New Tag Name' ),
+		// 	'separate_items_with_commas' => __( 'Separate tags with commas' ),
+		// 	'add_or_remove_items'        => __( 'Add or remove tags' ),
+		// 	'choose_from_most_used'      => __( 'Choose from the most used tags' ),
+		// 	'not_found'                  => __( 'No tags found.' ),
+		// 	'menu_name'                  => __( 'Tags' ),
+		// );
+		// $args = array_merge($global_options, array(
+		// 	'labels'                => $labels,
+		// 	'rewrite'               => array( 'slug' => 'collections_tag' ),
+		// 	'hierarchical'			=> false
+		// ) );
+		// register_taxonomy( 'collections_tag', 'collections', $args );
+
+
+    }
+
+
+	add_action('init', 'tags_for_collections');
+    function tags_for_collections() {
+    	register_taxonomy_for_object_type( 'post_tag', 'collections' );
+    }
+
+    add_filter('term_link', 'collections_tags_link', 100, 3);
+    function collections_tags_link($termlink, $term, $taxonomy) {
+    	if ( is_post_type_archive('collections') && ( 'post_tag' == $taxonomy ) ) {
+    		$termlink = add_query_arg( 'tag', $term->slug, get_post_type_archive_link( 'collections' ) );
+    	}    	
+    	return $termlink;
     }

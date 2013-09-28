@@ -61,21 +61,30 @@
     }
 
     .left-sidebar {
-        background: @color1;
+        // background: @color1;
     }
     
     .right-sidebar {
-        background: @color3;
+        // background: @color3;
     }
+
+    .banner {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+
+/*  ==========================================================================
+    Responsive utilities
+    ========================================================================== */
 
     img {
         max-width: 100%;
         height: auto;
     }
 
-    .banner {
-        text-align: center;
-        margin-bottom: 20px;
+    button, input, select, textarea {
+        max-width: 100%;
     }
 
 
@@ -99,7 +108,7 @@
     }
 
     .sidebar {
-        border: 1px solid @gray-light;
+        border: 1px solid @gray-lighter;
         min-height: 100px;
         .make-xs-column(6);
         .make-sm-column(2);
@@ -284,7 +293,9 @@
         }
     }
 
-
+/*  ==========================================================================
+    Collections archive
+    ========================================================================== */
 
     .pagination-container {
         text-align: center;
@@ -391,30 +402,82 @@
             text-align: center;
             margin-bottom: 1em;
         }
-        .mediums, .times {
+        .inner {
             .make-row;
             margin-bottom: 2em;
             & > div {
-                .make-xs-column(6);
-                .make-sm-column(3);
-                margin-bottom: 2em;
+                .clearfix();
 
-                a {
-                    position: relative;
-                    display: block;
+                & > div {
+                    .make-xs-column(6);
+                    .make-sm-column(3);
+                    margin-bottom: 2em;
 
-                    span {
+                    a {
+                        position: relative;
                         display: block;
-                        position: absolute;
-                        width: 100%;
-                        top: 50%;
-                        margin-top: -.8em;
-                        font-size: 2em;
-                        color: #fff;
-                        text-align: center;
-                        text-transform: uppercase;
+
+                        span {
+                            display: block;
+                            position: absolute;
+                            width: 100%;
+                            top: 50%;
+                            margin-top: -.8em;
+                            font-size: 2em;
+                            color: #fff;
+                            text-align: center;
+                            text-transform: uppercase;
+                        }
                     }
                 }
+            }
+        }
+
+        &.collections-landing-source {
+            .inner {
+                padding: 1em;
+
+                .sources {
+                    padding: 2em 1em 0 1em;
+                    background: @gray-lighter;
+                }
+            }
+        }
+    }
+
+/*  ==========================================================================
+    Sidebars and widgets
+    ========================================================================== */
+
+    .sidebar {
+        .widget {
+            padding: 1em 0;
+
+            form {
+                text-align: center;
+            }
+
+            input[type="submit"], button[type="submit"] {
+                background: @gray-lighter;
+                border: 1px solid @gray-light;
+            }
+        }
+    }
+    .widget-inner {
+        & > h3 {
+            font-style: italic;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h5, h6 {
+            margin: 0;
+            text-align: center;
+        }
+
+        a {
+            &:hover, &:active, &:focus {
+                text-decoration: none;
             }
         }
     }

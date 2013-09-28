@@ -195,6 +195,13 @@
 			return true;
 	}
 
+	add_action('collections_archive_content', 'no_collections');
+	function no_collections() {		
+		if ( !is_post_type_archive('collections') ) {
+        	get_template_part('templates/no', 'content');
+		}
+	}
+
 	add_action('collections_archive_content', 'collections_entries');
 	function collections_entries() {
 		if ( !is_post_type_archive('collections') ) {
@@ -207,7 +214,28 @@
 	add_action('collections_archive_content', 'collections_landing');
 	function collections_landing() {
 		if ( is_post_type_archive('collections') ) {
-			get_template_part('templates/collection', 'landing');
+			foreach ( array('medium', 'time') as $tax ) {
+				$tax = get_taxonomy($tax);
+				include(locate_template('templates/collection-landing.php'));
+			} 
+		}
+	}
+
+	add_action('collections_archive_content', 'collections_tag_cloud');
+	function collections_tag_cloud() {
+		if ( is_post_type_archive('collections') ) {
+			echo '<div class="collections-landing collections-tag-cloud">';
+			_e('<h3>Browse by Tag</h3>', 'roots');
+			wp_tag_cloud( );
+			echo '</div>';
+		}
+	}
+
+	add_action('collections_archive_content', 'collections_sources');
+	function collections_sources() {
+		if ( is_post_type_archive('collections') ) {
+			$tax = get_taxonomy('source');
+			include(locate_template('templates/collection-landing.php'));
 		}
 	}
 
