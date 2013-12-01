@@ -1,6 +1,6 @@
 <div class="row taxonomy-nav nav-collapse">
 	<ul class="taxonomies nav navbar-nav">
-	<?php foreach ($taxonomies as $tax): ?>
+	<?php foreach ( (array) $taxonomies as $tax): ?>
 		<?php if ( !in_array( $tax->name, array('medium', 'post_tag', 'source') ) ): ?>
 			<li class="dropdown tax-<?php echo $tax->name; ?>">
 				<a href="#<?php echo $tax->name; ?>" data-target="#" data-toggle="dropdown" class="dropdown-toggle"><?php echo $tax->labels->name; ?></a>

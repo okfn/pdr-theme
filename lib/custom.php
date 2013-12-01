@@ -183,8 +183,18 @@
 	add_action('before_achive', 'taxonomy_nav');
 	function taxonomy_nav() {
 		if ( !is_post_type_archive('collections') ) {
-			$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
-			include(locate_template('templates/taxonomy-nav.php'));
+			if ( get_query_var('medium') ) {
+				$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
+				include(locate_template('templates/medium-taxonomy-nav.php'));
+			}
+			else if ( $time = get_query_var('time') ) {
+				$tax = get_taxonomy( 'time' );
+				$term = get_term_by( 'slug', $time, 'time');
+
+				include(locate_template('templates/time-taxonomy-nav.php'));
+			}
+				
+			
 		}
 	}
 
