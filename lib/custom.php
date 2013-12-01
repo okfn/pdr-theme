@@ -245,3 +245,31 @@
 			dynamic_sidebar('collections-landing');
 		}
 	}
+
+
+/*  ==========================================================================
+    The taxonomy nav urls
+    ========================================================================== */
+
+    add_filter('taxonomy_nav_url', 'taxonomy_nav_url', 10, 3);
+    function taxonomy_nav_url($url, $tax, $term) {
+
+    	// The "time" or "medium" tax should always persist if we're in that section, while the other options do not persist.
+    	if ( $section_term = get_query_var('medium') ) {
+    		$section = 'medium';
+    	}
+    	else if ( $section_term = get_query_var('time') ) {
+    		$section = 'time';
+    	}
+
+    	if ( $term && $section ) {
+    		$url = add_query_arg( array( $section => $section_term, $tax->query_var => $term->slug ), strtok( $_SERVER["REQUEST_URI"], '?' ) );
+    	}
+    	else {
+    		$url = add_query_arg( $tax->query_var, $term->slug );
+    	}
+
+    	return $url;
+    }
+
+	
