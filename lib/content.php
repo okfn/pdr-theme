@@ -202,32 +202,6 @@
 		register_taxonomy( 'genre', 'collections', $args );
 
 
-		// Rights Labelling
-		$labels = array(
-			'name'                       => _x( 'Rights Labelling', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Rights Label', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Labels' ),
-			'popular_items'              => __( 'Popular Labels' ),
-			'all_items'                  => __( 'All Labels' ),
-			'parent_item'                => null,
-			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Label' ),
-			'update_item'                => __( 'Update Label' ),
-			'add_new_item'               => __( 'Add New Label' ),
-			'new_item_name'              => __( 'New Label Name' ),
-			'separate_items_with_commas' => __( 'Separate labels with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove labels' ),
-			'choose_from_most_used'      => __( 'Choose from the most used labels' ),
-			'not_found'                  => __( 'No labels found.' ),
-			'menu_name'                  => __( 'Rights Labelling' ),
-		);
-		$args = array_merge($global_options, array(
-			'labels'                => $labels,
-			'rewrite'               => array( 'slug' => 'rights_label' ),
-		) );
-		register_taxonomy( 'rights_label', 'collections', $args );
-
-
 		// Content
 		$labels = array(
 			'name'                       => _x( 'Content', 'taxonomy general name' ),
@@ -329,6 +303,32 @@
 		// 	'hierarchical'			=> false
 		// ) );
 		// register_taxonomy( 'collections_tag', 'collections', $args );
+
+
+		// Rights Labelling
+		$labels = array(
+			'name'                       => _x( 'Rights', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Rights Label', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Labels' ),
+			'popular_items'              => __( 'Popular Labels' ),
+			'all_items'                  => __( 'All Labels' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Label' ),
+			'update_item'                => __( 'Update Label' ),
+			'add_new_item'               => __( 'Add New Label' ),
+			'new_item_name'              => __( 'New Label Name' ),
+			'separate_items_with_commas' => __( 'Separate labels with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove labels' ),
+			'choose_from_most_used'      => __( 'Choose from the most used labels' ),
+			'not_found'                  => __( 'No labels found.' ),
+			'menu_name'                  => __( 'Rights' ),
+		);
+		$args = array_merge($global_options, array(
+			'labels'                => $labels,
+			'rewrite'               => array( 'slug' => 'rights_label' ),
+		) );
+		register_taxonomy( 'rights_label', 'collections', $args );
 
 
     }
