@@ -293,7 +293,7 @@
     	if ( is_front_page() && is_feature_item() ) {
     		$size = 'pdr_home_article';
     	}
-    	else if ( is_feature_item() || is_archive() ) {
+    	else if ( is_archive() ) {
     		$size = 'pdr_large';
     	}
     	else  {
@@ -301,4 +301,23 @@
     	}
 
     	return $size;
+    }
+
+/*  ==========================================================================
+    The excerpt
+    ========================================================================== */
+
+    add_action('pdr_excerpt', 'content_summary_excerpt');
+    function content_summary_excerpt() {
+        global $post;
+
+        if ( ( is_front_page() && is_feature_item() ) )
+        	$length = 300;
+        elseif ( is_archive() )
+        	$length = 150;
+        else
+        	$length = 70;
+
+        $excerpt = $post->post_excerpt ? AdvancedExcerpt::text_add_more($post->post_excerpt, '', '&hellip;'.__('Continued', 'roots')) : the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true );
+        echo $excerpt;
     }

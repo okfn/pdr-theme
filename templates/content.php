@@ -11,7 +11,7 @@
 				<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			</header>
 			<div class="entry-summary">
-				<?php echo the_advanced_excerpt( array( 'allowed_tags' => array() ), true ); ?>
+				<?php do_action('pdr_excerpt'); ?>
 			</div>
 		</div>
 	</div>
