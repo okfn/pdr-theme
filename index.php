@@ -13,7 +13,11 @@
     
     <?php //if ($wp_query->max_num_pages > 1) :  ?>
         <div class="archive-link-container">
-            <a class="archive-link" href="<?php echo add_query_arg('medium', get_query_var('medium'), get_post_type_archive_link( $wp_query->query['post_type'] ) ) ?>">See more</a>
+            <?php if ( 'collections' == get_query_var('post_type') ): ?>
+                <a class="archive-link" href="<?php echo add_query_arg('medium', get_query_var('medium'), get_post_type_archive_link( $wp_query->query['post_type'] ) ) ?>">See more</a>
+            <?php else: ?>
+                <a class="archive-link" href="<?php echo get_permalink( get_option( 'page_for_posts' ) ); ?>">See more</a>
+            <?php endif; ?>
         </div>
     <?php //endif; ?>
 </div>

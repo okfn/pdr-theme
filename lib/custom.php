@@ -321,3 +321,13 @@
         $excerpt = $post->post_excerpt ? AdvancedExcerpt::text_add_more($post->post_excerpt, '', '&hellip;'.__('Continued', 'roots')) : the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true );
         echo $excerpt;
     }
+
+
+/*  ==========================================================================
+    Taxonomy description
+    ========================================================================== */
+
+    add_action('before_achive', 'taxonomy_description');
+    function taxonomy_description() {
+    	get_template_part('templates/taxonomy', 'description');
+    }
