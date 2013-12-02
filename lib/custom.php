@@ -59,8 +59,9 @@
     add_action('init', 'pdr_image_sizes');
     function pdr_image_sizes() {
     	add_image_size( 'pdr_main', 540, 280, true );
-    	add_image_size( 'pdr_large', 750, 420, true );
-    	add_image_size( 'pdr_collection_large', 750, 297, true );
+    	add_image_size( 'pdr_large', 540, 362, true );
+    	add_image_size( 'pdr_home_article', 540, 302, true );
+    	add_image_size( 'pdr_collection_large', 540, 214, true );
     }
 
 
@@ -283,3 +284,25 @@
     }
 
 	
+/*  ==========================================================================
+    PDR Thumbnail size
+    ========================================================================== */
+
+    add_filter('pdr_thumbnail_size', 'pdr_theme_thumbnail_size');
+    function pdr_theme_thumbnail_size($size) {
+    	
+    	if ( is_front_page() && is_feature_item() ) {
+    		$size = 'pdr_home_article';
+    	}
+
+    	else if ( is_feature_item() || is_archive() ) {
+    		$size = 'pdr_large';
+    	}
+    	else  {
+    		$size = 'thumbnail';
+    	}
+    	fb($size);
+
+
+    	return $size;
+    }
