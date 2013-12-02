@@ -290,19 +290,15 @@
 
     add_filter('pdr_thumbnail_size', 'pdr_theme_thumbnail_size');
     function pdr_theme_thumbnail_size($size) {
-    	
     	if ( is_front_page() && is_feature_item() ) {
     		$size = 'pdr_home_article';
     	}
-
     	else if ( is_feature_item() || is_archive() ) {
     		$size = 'pdr_large';
     	}
     	else  {
     		$size = 'thumbnail';
     	}
-    	fb($size);
-
 
     	return $size;
     }

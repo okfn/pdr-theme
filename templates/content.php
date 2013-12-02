@@ -11,7 +11,7 @@
 				<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			</header>
 			<div class="entry-summary">
-				<?php the_excerpt(); ?>
+				<?php echo the_advanced_excerpt( array( 'allowed_tags' => array() ), true ); ?>
 			</div>
 		</div>
 	</div>
