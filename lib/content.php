@@ -42,45 +42,45 @@
 
 	$collections = array('image', 'text', 'film', 'audio');
 
-    add_action('init', 'init_pdr_cpt');
-	function init_pdr_cpt() {
-		global $collections;
+    // add_action('init', 'init_pdr_cpt');
+	// function init_pdr_cpt() {
+	// 	global $collections;
 		
-		foreach ( $collections as $collection ) {
+	// 	foreach ( $collections as $collection ) {
 
-			$labels = array(
-				'name' => sprintf( '%ss', ucfirst($collection) ),
-				'singular_name' => sprintf( '%s', ucfirst($collection) ),
-				'add_new' => 'Add New',
-				'add_new_item' => sprintf( 'Add New %s', ucfirst($collection) ),
-				'edit_item' => sprintf( 'Edit %s', ucfirst($collection) ),
-				'new_item' => sprintf( 'New %s', ucfirst($collection) ),
-				'all_items' => sprintf( 'All %ss', ucfirst($collection) ),
-				'view_item' => sprintf( 'View %s', ucfirst($collection) ),
-				'search_items' => sprintf( 'Search %ss', ucfirst($collection) ),
-				'not_found' =>  sprintf( 'No %ss found', $collection ),
-				'not_found_in_trash' => sprintf( 'No %ss found in trash', $collection ), 
-				'parent_item_colon' => '',
-				'menu_name' => sprintf( '%ss', ucfirst($collection) )
-			);
-			$args = array(
-				'labels' => $labels,
-				'public' => true,
-				'publicly_queryable' => true,
-				'show_ui' => true, 
-				'show_in_menu' => true, 
-				'query_var' => true,
-				'rewrite' => array( 'slug' => $collection ),
-				'capability_type' => 'post',
-				'has_archive' => true, 
-				'hierarchical' => false,
-				'menu_position' => null,
-				'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
-			); 
-			register_post_type( $collection, $args );
+	// 		$labels = array(
+	// 			'name' => sprintf( '%ss', ucfirst($collection) ),
+	// 			'singular_name' => sprintf( '%s', ucfirst($collection) ),
+	// 			'add_new' => 'Add New',
+	// 			'add_new_item' => sprintf( 'Add New %s', ucfirst($collection) ),
+	// 			'edit_item' => sprintf( 'Edit %s', ucfirst($collection) ),
+	// 			'new_item' => sprintf( 'New %s', ucfirst($collection) ),
+	// 			'all_items' => sprintf( 'All %ss', ucfirst($collection) ),
+	// 			'view_item' => sprintf( 'View %s', ucfirst($collection) ),
+	// 			'search_items' => sprintf( 'Search %ss', ucfirst($collection) ),
+	// 			'not_found' =>  sprintf( 'No %ss found', $collection ),
+	// 			'not_found_in_trash' => sprintf( 'No %ss found in trash', $collection ), 
+	// 			'parent_item_colon' => '',
+	// 			'menu_name' => sprintf( '%ss', ucfirst($collection) )
+	// 		);
+	// 		$args = array(
+	// 			'labels' => $labels,
+	// 			'public' => true,
+	// 			'publicly_queryable' => true,
+	// 			'show_ui' => true, 
+	// 			'show_in_menu' => true, 
+	// 			'query_var' => true,
+	// 			'rewrite' => array( 'slug' => $collection ),
+	// 			'capability_type' => 'post',
+	// 			'has_archive' => true, 
+	// 			'hierarchical' => false,
+	// 			'menu_position' => null,
+	// 			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+	// 		); 
+	// 		register_post_type( $collection, $args );
 
-		}
-	}
+	// 	}
+	// }
 
 
 /*  ==========================================================================
