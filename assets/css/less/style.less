@@ -57,7 +57,7 @@
 
     footer .row {
         min-height: 100px;
-        background: @color4;
+        // background: @color4;
     }
 
     .left-sidebar {
@@ -98,12 +98,12 @@
         }
         &.main-sidebar {
             .make-xs-column(12);
-            .make-sm-column(8);
-            .make-md-column(8);
-            .make-lg-column(8);
-            .make-sm-column-push(2);
-            .make-md-column-push(2);
-            .make-lg-column-push(2);
+            .make-sm-column(7);
+            .make-md-column(7);
+            .make-lg-column(7);
+            .make-sm-column-push(2.5);
+            .make-md-column-push(2.5);
+            .make-lg-column-push(2.5);
         }
     }
 
@@ -111,15 +111,21 @@
         border: 1px solid @gray-lighter;
         min-height: 100px;
         .make-xs-column(6);
-        .make-sm-column(2);
-        .make-md-column(2);
-        .make-lg-column(2);
+        .make-sm-column(2.5);
+        .make-md-column(2.5);
+        .make-lg-column(2.5);
 
         &.left-sidebar {
-            .make-sm-column-pull(8);
-            .make-md-column-pull(8);
-            .make-lg-column-pull(8);
+            .make-sm-column-pull(7);
+            .make-md-column-pull(7);
+            .make-lg-column-pull(7);
         }
+    }
+
+    .footer-top,
+    .footer-bottom {
+        .make-xs-column(12);
+        .make-sm-column(12);
     }
 
     // The feature and inner columns on the front page
@@ -487,6 +493,39 @@
             &:hover, &:active, &:focus {
                 text-decoration: none;
             }
+        }
+    }
+
+
+/*  ==========================================================================
+    Footer
+    ========================================================================== */
+
+    .footer-bottom,
+    .footer-top {
+        font-size: .8em;
+        text-align: center;
+
+        .inner {
+            padding-top: 1em;
+            padding-bottom: 1em;    
+        }
+        
+
+        a {
+            color: @purple;
+
+            &:hover,
+            &:focus {
+                color: darken(@purple, 10%)
+            }
+        }
+    }
+
+    .footer-top {
+        .inner {
+            border-top: 1px solid @gray-lighter;
+            border-bottom: 1px solid @gray-lighter;
         }
     }
 
