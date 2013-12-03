@@ -9,7 +9,7 @@
 						<h2 class="entry-title"><?php the_title(); ?></h2>
 					</header>
 				<?php else: ?>
-					<?php the_post_thumbnail('thumbnail'); ?>
+					<?php the_post_thumbnail(  apply_filters('pdr_thumbnail_size', $size) ); ?>
 				<?php endif; ?>
 			</a>
 		</div>

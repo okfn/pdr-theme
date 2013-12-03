@@ -174,7 +174,7 @@
 	    if ( is_admin() || ! $query->is_main_query() )
 	        return;
 
-	    if ( is_archive( ) ) {
+	    if ( is_archive() || is_search() ) {
 	        $query->set( 'posts_per_page', 8 );
 	        return;
 	    }
@@ -293,7 +293,7 @@
     	if ( is_front_page() && is_feature_item() ) {
     		$size = 'pdr_home_article';
     	}
-    	else if ( is_archive() ) {
+    	else if ( is_archive() || is_search() ) {
     		$size = 'pdr_large';
     	}
     	else  {
@@ -313,7 +313,7 @@
 
         if ( ( is_front_page() && is_feature_item() ) )
         	$length = 300;
-        elseif ( is_archive() )
+        elseif ( is_archive() || is_search() )
         	$length = 150;
         else
         	$length = 70;
