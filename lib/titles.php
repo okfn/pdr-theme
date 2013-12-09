@@ -10,10 +10,11 @@ function roots_title() {
       _e('Latest Posts', 'roots');
     }
   } elseif (is_archive()) {
-    fb(is_tag());
     $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
     if ($term) {
       echo $term->name;
+    } elseif ( is_tag() ) {
+      echo get_queried_object()->name;
     } elseif (is_post_type_archive()) {
       echo get_queried_object()->labels->name;
     } elseif (is_day()) {
@@ -25,9 +26,6 @@ function roots_title() {
     } elseif (is_author()) {
       $author = get_queried_object();
       printf(__('Author Archives: %s', 'roots'), $author->display_name);
-    } elseif (is_tag()) {
-      // fb(get_queried_object());
-      echo get_queried_object()->labels->name;
     } else {
       single_cat_title();
     }

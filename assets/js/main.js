@@ -10,7 +10,7 @@
 
 	function collections_box_heights() {
 		if( Modernizr.mq('screen and (min-width:768px)') ) {
-			$('.archive .main .regular-list-item').equalHeights();
+			$('.grid .main .regular-list-item').equalHeights();
 		}
 	}
 

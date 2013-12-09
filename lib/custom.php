@@ -66,9 +66,42 @@
 
 
 /*  ==========================================================================
+    Template Override
+    ========================================================================== */
+    add_filter('template_include', 'pdr_index_template', 100);
+	function pdr_index_template($template) {
+		if ( is_front_page() ) // Use the index on our front page
+			return Roots_Wrapping::wrap(locate_template('index.php'));
+		elseif ( is_home() ) // Use the archive page for our blog page
+			return Roots_Wrapping::wrap(locate_template('archive.php'));
+		else 
+			return $template;
+	}
+
+
+/*  ==========================================================================
     Homepage Lists
     ========================================================================== */
+	add_action('inside_before_content', 'homepage_articles', 10);
+	function homepage_articles() {
+		if ( is_front_page() ) {
+			global $wp_query, $query_holder;
+	    	$query_holder = $wp_query;
+	    	
+	    	$wp_query = new WP_Query(array(
+	    		'post_type' => 'post',
+	    		'posts_per_page' => 5,
+			));
+		}
+	}
 
+	add_action('inside_after_content', 'homepage_articles_end', 10);
+	function homepage_articles_end() {
+		global $wp_query, $query_holder;
+    	$wp_query = $query_holder;
+	}
+	
+	
 	add_action('after_content', 'homepage_lists', 10);
     function homepage_lists() {
     	if ( is_front_page() ) {
@@ -174,10 +207,10 @@
 	    if ( is_admin() || ! $query->is_main_query() )
 	        return;
 
-	    if ( is_archive() || is_search() ) {
-	        $query->set( 'posts_per_page', 8 );
-	        return;
-	    }
+	    // if ( is_archive() || is_search() || is_home() ) {
+	    //     $query->set( 'posts_per_page', 8 );
+	    //     return;
+	    // }
 	}
 
 
@@ -235,12 +268,17 @@
 	add_action('collections_archive_content', 'collections_tag_cloud');
 	function collections_tag_cloud() {
 		if ( is_post_type_archive('collections') ) {
-			echo '<div class="collections-landing collections-tag-cloud">';
-			_e('<h3>Browse by Tag</h3>', 'roots');
-			wp_tag_cloud( );
-			echo '</div>';
+			include(locate_template('templates/tag-cloud.php'));
 		}
 	}
+
+	add_action('after_achive', 'tag_landing_tag_cloud');
+	function tag_landing_tag_cloud() {
+		if (is_tag()) {
+			include(locate_template('templates/tag-cloud.php'));
+		}
+	}
+
 
 	add_action('collections_archive_content', 'collections_sources');
 	function collections_sources() {
@@ -290,10 +328,14 @@
 
     add_filter('pdr_thumbnail_size', 'pdr_theme_thumbnail_size');
     function pdr_theme_thumbnail_size($size) {
-    	if ( is_front_page() && is_feature_item() ) {
+    	// fb(is_home(), 'is_home');
+    	if ( is_feature_item() ) {
     		$size = 'pdr_home_article';
     	}
-    	else if ( is_archive() || is_search() ) {
+    	else if ( is_home_page() ) {
+    		$size = 'thumbnail';
+    	}
+    	else if ( is_grid() ) {
     		$size = 'pdr_large';
     	}
     	else  {
@@ -310,10 +352,12 @@
     add_action('pdr_excerpt', 'content_summary_excerpt');
     function content_summary_excerpt() {
         global $post;
-
+        
         if ( ( is_front_page() && is_feature_item() ) )
         	$length = 300;
-        elseif ( is_archive() || is_search() )
+        elseif ( is_home_page() )
+        	$length = 70;
+        elseif ( is_grid() )
         	$length = 150;
         else
         	$length = 70;
@@ -331,3 +375,23 @@
     function taxonomy_description() {
     	get_template_part('templates/taxonomy', 'description');
     }
+
+    function is_grid() {
+    	// fb(is_archive(), 'archive');
+    	// fb(is_search(), 'search');
+    	// fb(is_home(), 'home');
+    	return ( is_archive() || is_search() || is_home() );
+    }
+
+    function is_home_page() {
+    	return ( $_SERVER['REQUEST_URI'] === '/' );
+    }
+
+
+	add_filter('body_class', 'grid_body_class');
+	function grid_body_class( $classes ) {
+		if ( is_grid() )
+			$classes[] = 'grid';
+
+		return $classes;
+	}
