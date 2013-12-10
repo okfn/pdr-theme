@@ -123,26 +123,26 @@
 		}
     }
 
-    function feature_excerpt_length() {
-    	return 45;
-    }
-    function standard_exerpt_length( $length ) {
-    	global $post;
-    	$length = 14 - str_word_count($post->post_title, 0);
-    	if ( $length < 0 ) $length = 0;
-		return $length;
-	}
+ //    function feature_excerpt_length() {
+ //    	return 45;
+ //    }
+ //    function standard_exerpt_length( $length ) {
+ //    	global $post;
+ //    	$length = 14 - str_word_count($post->post_title, 0);
+ //    	if ( $length < 0 ) $length = 0;
+	// 	return $length;
+	// }
 
-	add_filter( 'excerpt_length', 'standard_exerpt_length', 999 );
-    add_action('before_post', 'set_feature_excerpt_length');
-    function set_feature_excerpt_length() {
-    	if ( is_feature_item() )
-	    	add_filter( 'excerpt_length', 'feature_excerpt_length', 999 );
-    }
-    add_action('after_post', 'unset_feature_excerpt_length');
-    function unset_feature_excerpt_length() {
-    	remove_filter( 'excerpt_length', 'feature_excerpt_length', 999 );
-    }
+	// add_filter( 'excerpt_length', 'standard_exerpt_length', 999 );
+ //    add_action('before_post', 'set_feature_excerpt_length');
+ //    function set_feature_excerpt_length() {
+ //    	if ( is_feature_item() )
+	//     	add_filter( 'excerpt_length', 'feature_excerpt_length', 999 );
+ //    }
+ //    add_action('after_post', 'unset_feature_excerpt_length');
+ //    function unset_feature_excerpt_length() {
+ //    	remove_filter( 'excerpt_length', 'feature_excerpt_length', 999 );
+ //    }
 
     // Collections Sidebars
     add_action('init', 'collections_sidebars_init');
@@ -358,17 +358,36 @@
     add_action('pdr_excerpt', 'content_summary_excerpt');
     function content_summary_excerpt() {
         global $post;
-        
-        if ( ( is_front_page() && is_feature_item() ) )
-        	$length = 300;
-        elseif ( is_home_page() )
-        	$length = 70;
-        elseif ( is_grid() )
-        	$length = 150;
-        else
-        	$length = 70;
 
-        $excerpt = $post->post_excerpt ? AdvancedExcerpt::text_add_more($post->post_excerpt, '', '&hellip;'.__('Continued', 'roots')) : the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true );
+        $limit = true;
+        
+        if ( ( is_feature_item() ) ) {
+        	$length = 300;
+        	$limit = $post->post_excerpt ? false : true;
+        }	
+        elseif ( is_home_page() ) {
+        	$length = 70;
+        }
+        elseif ( is_grid() ) {
+        	$length = 150;
+        }
+        else {
+        	$length = 70;
+        }
+
+        if ( $limit ) {
+        	$excerpt = $post->post_excerpt ? 
+	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, false, false, false), '', '&hellip;'.__('Continued', 'roots') ) : 
+	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true )
+        	;
+        }
+        else {
+        	$excerpt = $post->post_excerpt ? 
+	        	AdvancedExcerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) : 
+	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true )
+        	;
+        }
+
         echo $excerpt;
     }
 
