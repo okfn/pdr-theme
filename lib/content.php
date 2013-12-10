@@ -279,30 +279,56 @@
 
 
 		// Collections Tags
-		// $labels = array(
-		// 	'name'                       => _x( 'Tags', 'taxonomy general name' ),
-		// 	'singular_name'              => _x( 'Tags', 'taxonomy singular name' ),
-		// 	'search_items'               => __( 'Search Tags' ),
-		// 	'popular_items'              => __( 'Popular Tags' ),
-		// 	'all_items'                  => __( 'All Tags' ),
-		// 	'parent_item'                => null,
-		// 	'parent_item_colon'          => null,
-		// 	'edit_item'                  => __( 'Edit Tag' ),
-		// 	'update_item'                => __( 'Update Tag' ),
-		// 	'add_new_item'               => __( 'Add New Tag' ),
-		// 	'new_item_name'              => __( 'New Tag Name' ),
-		// 	'separate_items_with_commas' => __( 'Separate tags with commas' ),
-		// 	'add_or_remove_items'        => __( 'Add or remove tags' ),
-		// 	'choose_from_most_used'      => __( 'Choose from the most used tags' ),
-		// 	'not_found'                  => __( 'No tags found.' ),
-		// 	'menu_name'                  => __( 'Tags' ),
-		// );
-		// $args = array_merge($global_options, array(
-		// 	'labels'                => $labels,
-		// 	'rewrite'               => array( 'slug' => 'collections_tag' ),
-		// 	'hierarchical'			=> false
-		// ) );
-		// register_taxonomy( 'collections_tag', 'collections', $args );
+		$labels = array(
+			'name'                       => _x( 'Tags', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Tag', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Tags' ),
+			'popular_items'              => __( 'Popular Tags' ),
+			'all_items'                  => __( 'All Tags' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Tag' ),
+			'update_item'                => __( 'Update Tag' ),
+			'add_new_item'               => __( 'Add New Tag' ),
+			'new_item_name'              => __( 'New Tag Name' ),
+			'separate_items_with_commas' => __( 'Separate tags with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove tags' ),
+			'choose_from_most_used'      => __( 'Choose from the most used tags' ),
+			'not_found'                  => __( 'No tags found.' ),
+			'menu_name'                  => __( 'Tags' ),
+		);
+		$args = array_merge($global_options, array(
+			'labels'                => $labels,
+			'rewrite'               => array( 'slug' => 'collections_tag' ),
+			'hierarchical'			=> false
+		) );
+		register_taxonomy( 'collections_tag', 'collections', $args );
+
+
+		// Collections Categories
+		$labels = array(
+			'name'                       => _x( 'Categories', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Category', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Categories' ),
+			'popular_items'              => __( 'Popular Categories' ),
+			'all_items'                  => __( 'All Categories' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __( 'Edit Category' ),
+			'update_item'                => __( 'Update Category' ),
+			'add_new_item'               => __( 'Add New Category' ),
+			'new_item_name'              => __( 'New Category Name' ),
+			'separate_items_with_commas' => __( 'Separate categories with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove categories' ),
+			'choose_from_most_used'      => __( 'Choose from the most used categories' ),
+			'not_found'                  => __( 'No categories found.' ),
+			'menu_name'                  => __( 'Categories' ),
+		);
+		$args = array_merge($global_options, array(
+			'labels'                => $labels,
+			'rewrite'               => array( 'slug' => 'collections_categories' ),
+		) );
+		register_taxonomy( 'collections_categories', 'collections', $args );
 
 
 		// Rights Labelling
@@ -334,15 +360,15 @@
     }
 
 
-	add_action('init', 'tags_for_collections');
+	// add_action('init', 'tags_for_collections');
     function tags_for_collections() {
     	register_taxonomy_for_object_type( 'post_tag', 'collections' );
     }
 
     add_filter('term_link', 'collections_tags_link', 100, 3);
     function collections_tags_link($termlink, $term, $taxonomy) {
-    	if ( is_post_type_archive('collections') && ( 'post_tag' == $taxonomy ) ) {
-    		$termlink = add_query_arg( 'tag', $term->slug, get_post_type_archive_link( 'collections' ) );
+    	if ( is_post_type_archive('collections') && ( 'collections_tag' == $taxonomy ) ) {
+    		$termlink = add_query_arg( 'collections_tag', $term->slug, get_post_type_archive_link( 'collections' ) );
     	}    	
     	return $termlink;
     }

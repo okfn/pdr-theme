@@ -214,7 +214,7 @@
 	}
 
 
-	add_action('before_achive', 'taxonomy_nav');
+	add_action('before_achive', 'taxonomy_nav', 11);
 	function taxonomy_nav() {
 		if ( !is_post_type_archive('collections') ) {
 			if ( get_query_var('medium') ) {
@@ -233,7 +233,7 @@
 	}
 
 	function show_collection_sidebars() {
-		if ( is_front_page() || !is_main_query() ) 
+		if ( is_front_page() || !is_main_query() || is_singular('post') ) 
 			return false;
 		else 
 			return true;
@@ -267,17 +267,23 @@
 
 	add_action('collections_archive_content', 'collections_tag_cloud');
 	function collections_tag_cloud() {
-		if ( is_post_type_archive('collections') ) {
-			include(locate_template('templates/tag-cloud.php'));
-		}
+		if ( is_post_type_archive('collections') )
+			include(locate_template('templates/collections-tag-cloud.php'));
 	}
 
 	add_action('after_achive', 'tag_landing_tag_cloud');
 	function tag_landing_tag_cloud() {
-		if (is_tag()) {
-			include(locate_template('templates/tag-cloud.php'));
-		}
+		if ( is_tag() )
+			include(locate_template('templates/posts-tag-cloud.php'));
 	}
+
+	add_action('after_achive', 'collections_tag_landing_tag_cloud');
+	function collections_tag_landing_tag_cloud() {
+		if ( is_tax( 'collections_tag' ) )
+			include(locate_template('templates/collections-tag-cloud.php'));
+	}
+
+	
 
 
 	add_action('collections_archive_content', 'collections_sources');
@@ -377,9 +383,6 @@
     }
 
     function is_grid() {
-    	// fb(is_archive(), 'archive');
-    	// fb(is_search(), 'search');
-    	// fb(is_home(), 'home');
     	return ( is_archive() || is_search() || is_home() );
     }
 
@@ -387,6 +390,9 @@
     	return ( $_SERVER['REQUEST_URI'] === '/' );
     }
 
+/*  ==========================================================================
+    Grid body class
+    ========================================================================== */
 
 	add_filter('body_class', 'grid_body_class');
 	function grid_body_class( $classes ) {
@@ -394,4 +400,82 @@
 			$classes[] = 'grid';
 
 		return $classes;
+	}
+
+/*  ==========================================================================
+    Add related content after collections single
+    ========================================================================== */
+
+	add_action('after_single_content', 'related_content_grid');
+	function related_content_grid() {
+		global $post, $wp_query;
+
+		if ( 'collections' !== $post->post_type )
+			return;
+
+		$post_terms = wp_get_post_terms( $post->ID, get_taxonomies() );
+    	$query_holder = $wp_query;
+
+    	$args = array(
+    		'post_type' => $post->post_type,
+    		'posts_per_page' => 12
+		);
+
+		if ( is_array($post_terms) ) {
+			$args['tax_query']['relation'] = 'OR';
+			foreach ( $post_terms as $term ) {
+				$args['tax_query'][] = array(
+					'taxonomy' => $term->taxonomy,
+					'field' => 'slug',
+					'terms' => $term->slug
+				);
+			}
+		}
+		// fb($args, 'args');
+    	$wp_query = new WP_Query($args);
+		
+		echo '<div class="related-content">';
+		echo __('<h3 class="entry-title">Related Content</h3>', 'roots' );
+		get_template_part('archive');
+		echo '</div>';
+
+    	$wp_query = $query_holder;
+	}
+
+/*  ==========================================================================
+    Setup the containers for the Border Frame widget style
+    ========================================================================== */
+
+	add_action('widget_css_classes_add_classes', 'setup_widget_bf_containers', 10, 5);
+	function setup_widget_bf_containers($params, $widget_id, $widget_number, $widget_opt, $widget_obj) {
+		add_filter('dynamic_sidebar_params', 'widget_bf_containers');
+	}
+
+	function widget_bf_containers($params) {
+
+		if ( strpos( $params[0]['before_widget'], 'frame' ) ) {
+			
+			$params[0]['before_widget'] = str_replace(
+				'<div class="widget-inner">', 
+				'<div class="bf1"><div class="bf2"><div class="bf3"><div class="bf4"><div class="bf5"><div class="bf6"><div class="bf7"><div class="bf8"><div class="widget-inner">', 
+				$params[0]['before_widget']
+			);
+
+			$params[0]['after_widget'] = str_replace(
+				'</section>',
+				'</div></div></div></div></div></div></div></div></section>',
+				$params[0]['after_widget']
+			);
+		}
+		
+		return $params;
+	}
+
+/*  ==========================================================================
+    Tag cloud shortcode
+    ========================================================================== */	
+	
+	add_shortcode('tag_cloud', 'tag_cloud_shortcode');
+	function tag_cloud_shortcode( $atts ) {
+		return wp_tag_cloud(array('echo' => false));
 	}

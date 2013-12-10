@@ -46,6 +46,30 @@
         }
     }
 
+    .grid-article {
+        .make-xs-column(12);
+        .make-sm-column(3);
+        .make-md-column(3);
+        .make-lg-column(3);
+        margin-top: 0;
+        margin-bottom: 1em;
+    }
+
+    .grid-media-object {
+        img {
+            min-width: 158px;
+        }
+        height: 106px;
+        overflow: hidden;
+    }
+
+    .single-header {
+        font-size: 2.571428571em;
+        text-transform: none;
+        font-weight: normal;
+        margin-bottom: .6em;
+    }
+
 
 /*  ==========================================================================
     Sample structure styles
@@ -108,7 +132,6 @@
     }
 
     .sidebar {
-        border: 1px solid @gray-lighter;
         min-height: 100px;
         .make-xs-column(6);
         .make-sm-column(2.5);
@@ -195,13 +218,7 @@
     .grid {
         .main .row {
             article {
-                .make-xs-column(12);
-                .make-sm-column(3);
-                .make-md-column(3);
-                .make-lg-column(3);
-
-                margin-top: 0;
-                margin-bottom: 1em;
+                .grid-article;
             }
         }
     }
@@ -469,9 +486,86 @@
     Sidebars and widgets
     ========================================================================== */
 
+    *[class*='bf'] {
+        position: relative;
+    }
+    @bf-zindex-base: 100;
+
+    .bf-tl {
+        background: url('../img/frame-tl.gif') left top no-repeat;
+        z-index: (@bf-zindex-base + 8);
+    }
+
+    .bf-t {
+        background: url('../img/frame-t.gif') left top repeat-x;
+        z-index: (@bf-zindex-base + 4);
+    }
+
+    .bf-tr {
+        background: url('../img/frame-tr.gif') right top no-repeat;
+        z-index: (@bf-zindex-base + 7);
+    }
+
+    .bf-r {
+        background: url('../img/frame-r.gif') right top repeat-y;
+        z-index: (@bf-zindex-base + 3);
+    }
+
+    .bf-br {
+        background: url('../img/frame-br.gif') right bottom no-repeat;
+        z-index: (@bf-zindex-base + 6);
+    }
+
+    .bf-b {
+        background: url('../img/frame-b.gif') left bottom repeat-x;
+        z-index: (@bf-zindex-base + 2);
+    }
+
+    .bf-bl {
+        background: url('../img/frame-bl.gif') left bottom no-repeat;
+        z-index: (@bf-zindex-base + 5);
+    }
+
+    .bf-l {
+        background: url('../img/frame-l.gif') left top repeat-y;
+        z-index: (@bf-zindex-base + 8);
+    }
+
+    .widget.frame {
+        .bf8 {
+            .bf-tl;
+        }
+        .bf7 {
+            .bf-tr;
+        }
+        .bf6 {
+            .bf-br;
+        }
+        .bf5 {
+            .bf-bl;
+        }
+        .bf4 {
+            .bf-t;
+        }
+        .bf3 {
+            .bf-r;
+        }
+        .bf2 {
+            .bf-b;
+        }
+        .bf1 {
+            .bf-l;
+        }
+
+        .widget-inner {
+            padding: 1em;
+        }
+    }
+
+
     .sidebar {
         .widget {
-            padding: 1em 0;
+            // padding: 1em 0;
 
             form {
                 text-align: center;
@@ -481,13 +575,17 @@
                 background: @gray-lighter;
                 border: 1px solid @gray-light;
             }
+
+
         }
     }
     .widget-inner {
         & > h3 {
             font-style: italic;
             text-align: center;
+            text-transform: uppercase;
             margin-top: 0;
+            font-size: 1.571428571em;
         }
 
         h5, h6 {
@@ -499,6 +597,16 @@
             &:hover, &:active, &:focus {
                 text-decoration: none;
             }
+        }
+    }
+
+    .rpwe-block {
+        ul {
+            .list-unstyled;
+        }
+        .rpwe-title {
+            margin-top: 10px;
+            text-align: center;
         }
     }
 
@@ -532,6 +640,47 @@
         .inner {
             border-top: 1px solid @gray-lighter;
             border-bottom: 1px solid @gray-lighter;
+        }
+    }
+
+
+/*  ==========================================================================
+    Single Item
+    ========================================================================== */
+
+    .single {
+        article {
+            .entry-title {
+                margin-top: 0;
+                text-align: center;
+            }
+        }
+
+        .main > article > header > .entry-title,
+        .related-content > .entry-title {
+            .single-header;
+        }
+    }
+
+    
+
+/*  ==========================================================================
+    Related content grid
+    ========================================================================== */
+    .related-content {
+        margin-top: 2em;
+
+        .page-header,
+        .tax-description,
+        .pagination-container {
+            .hide;
+        }
+
+
+
+        article {
+            .grid-article;
+            margin-top: 0 !important;
         }
     }
 
