@@ -123,7 +123,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'medium' ),
 		) );
-		register_taxonomy( 'medium', 'collections', $args );
+		register_taxonomy( 'medium', array('collections', 'post'), $args );
 
     	// Time (Centuries)
 		$labels = array(
@@ -148,7 +148,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'time' ),
 		) );
-		register_taxonomy( 'time', 'collections', $args );
+		register_taxonomy( 'time', array('collections', 'post'), $args );
 
 		// Styles
 		$labels = array(
@@ -173,7 +173,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'style' ),
 		) );
-		register_taxonomy( 'style', 'collections', $args );
+		register_taxonomy( 'style', array('collections', 'post'), $args );
 
 
 		// Genres
@@ -199,7 +199,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'genre' ),
 		) );
-		register_taxonomy( 'genre', 'collections', $args );
+		register_taxonomy( 'genre', array('collections', 'post'), $args );
 
 
 		// Content
@@ -225,7 +225,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'content' ),
 		) );
-		register_taxonomy( 'content', 'collections', $args );
+		register_taxonomy( 'content', array('collections', 'post'), $args );
 
 		// Types
 		$labels = array(
@@ -250,7 +250,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'type' ),
 		) );
-		register_taxonomy( 'type', 'collections', $args );
+		register_taxonomy( 'type', array('collections', 'post'), $args );
 
 		// Sources
 		$labels = array(
@@ -275,13 +275,13 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'source' ),
 		) );
-		register_taxonomy( 'source', 'collections', $args );
+		register_taxonomy( 'source', array('collections', 'post'), $args );
 
 
 		// Collections Tags
 		$labels = array(
-			'name'                       => _x( 'Tags', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Tag', 'taxonomy singular name' ),
+			'name'                       => _x( 'Collections Tags', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Collection Tag', 'taxonomy singular name' ),
 			'search_items'               => __( 'Search Tags' ),
 			'popular_items'              => __( 'Popular Tags' ),
 			'all_items'                  => __( 'All Tags' ),
@@ -295,20 +295,20 @@
 			'add_or_remove_items'        => __( 'Add or remove tags' ),
 			'choose_from_most_used'      => __( 'Choose from the most used tags' ),
 			'not_found'                  => __( 'No tags found.' ),
-			'menu_name'                  => __( 'Tags' ),
+			'menu_name'                  => __( 'Collections Tags' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'collections_tag' ),
 			'hierarchical'			=> false
 		) );
-		register_taxonomy( 'collections_tag', 'collections', $args );
+		register_taxonomy( 'collections_tag', array('collections', 'post'), $args );
 
 
 		// Collections Categories
 		$labels = array(
-			'name'                       => _x( 'Categories', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Category', 'taxonomy singular name' ),
+			'name'                       => _x( 'Collections Categories', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Collections Category', 'taxonomy singular name' ),
 			'search_items'               => __( 'Search Categories' ),
 			'popular_items'              => __( 'Popular Categories' ),
 			'all_items'                  => __( 'All Categories' ),
@@ -322,13 +322,13 @@
 			'add_or_remove_items'        => __( 'Add or remove categories' ),
 			'choose_from_most_used'      => __( 'Choose from the most used categories' ),
 			'not_found'                  => __( 'No categories found.' ),
-			'menu_name'                  => __( 'Categories' ),
+			'menu_name'                  => __( 'Collections Categories' ),
 		);
 		$args = array_merge($global_options, array(
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'collections_categories' ),
 		) );
-		register_taxonomy( 'collections_categories', 'collections', $args );
+		register_taxonomy( 'collections_categories', array('collections', 'post'), $args );
 
 
 		// Rights Labelling
@@ -354,13 +354,13 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'rights_label' ),
 		) );
-		register_taxonomy( 'rights_label', 'collections', $args );
+		register_taxonomy( 'rights_label', array('collections', 'post'), $args );
 
 
     }
 
 
-	// add_action('init', 'tags_for_collections');
+	add_action('init', 'tags_for_collections');
     function tags_for_collections() {
     	register_taxonomy_for_object_type( 'post_tag', 'collections' );
     }
