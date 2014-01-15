@@ -518,7 +518,7 @@
 		$post_holder = $post;
 		$side = strpos(current_filter(), 'right') ? true : false;
 		
-		foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1 ) ) as $k => $post ) {
+		foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1, 'post__not_in' => array($post_holder->ID) ) ) as $k => $post ) {
 			if ( $side == ($k & 1) ) {
 				setup_postdata( $post );
 				get_template_part( 'templates/content');
