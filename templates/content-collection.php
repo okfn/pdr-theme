@@ -18,7 +18,7 @@
 				<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			</header>
 			<div class="entry-summary">
-				<?php the_excerpt(); ?>
+				<?php do_action('pdr_excerpt'); ?>
 			</div>
 		</div>
 	</div>

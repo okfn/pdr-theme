@@ -380,13 +380,13 @@
         if ( $limit ) {
         	$excerpt = $post->post_excerpt ? 
 	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, false, false, false), '', '&hellip;'.__('Continued', 'roots') ) : 
-	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true )
+	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
         else {
         	$excerpt = $post->post_excerpt ? 
 	        	AdvancedExcerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) : 
-	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length ), true )
+	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
 
