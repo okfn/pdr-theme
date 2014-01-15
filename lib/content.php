@@ -302,7 +302,7 @@
 			'rewrite'               => array( 'slug' => 'collections_tag' ),
 			'hierarchical'			=> false
 		) );
-		register_taxonomy( 'collections_tag', array('collections', 'post'), $args );
+		// register_taxonomy( 'collections_tag', array('collections', 'post'), $args );
 
 
 		// Collections Categories
@@ -367,7 +367,9 @@
 
     add_filter('term_link', 'collections_tags_link', 100, 3);
     function collections_tags_link($termlink, $term, $taxonomy) {
-    	if ( is_post_type_archive('collections') && ( 'collections_tag' == $taxonomy ) ) {
+    	if ( is_post_type_archive('collections') 
+    		//&& ( 'collections_tag' == $taxonomy ) 
+    		) {
     		$termlink = add_query_arg( 'collections_tag', $term->slug, get_post_type_archive_link( 'collections' ) );
     	}    	
     	return $termlink;
