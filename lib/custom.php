@@ -97,8 +97,10 @@
 
 	add_action('inside_after_content', 'homepage_articles_end', 10);
 	function homepage_articles_end() {
-		global $wp_query, $query_holder;
-    	$wp_query = $query_holder;
+		if ( is_home() ) {
+			global $wp_query, $query_holder;
+	    	$wp_query = $query_holder;
+	    }
 	}
 	
 	
