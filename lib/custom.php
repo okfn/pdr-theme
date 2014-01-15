@@ -439,11 +439,12 @@
 
     	$args = array(
     		'post_type' => $post->post_type,
-    		'posts_per_page' => 12
+    		'posts_per_page' => 12,
+    		'post__not_in' => array($post->ID)
 		);
 
 		if ( is_array($post_terms) ) {
-			$args['tax_query']['relation'] = 'OR';
+			$args['tax_query']['relation'] = 'AND';
 			foreach ( $post_terms as $term ) {
 				$args['tax_query'][] = array(
 					'taxonomy' => $term->taxonomy,
@@ -454,11 +455,13 @@
 		}
 		// fb($args, 'args');
     	$wp_query = new WP_Query($args);
-		
-		echo '<div class="related-content">';
-		echo __('<h3 class="entry-title">Related Content</h3>', 'roots' );
-		get_template_part('archive');
-		echo '</div>';
+
+    	if ( have_posts() ) {
+			echo '<div class="related-content">';
+			echo __('<h3 class="entry-title">Related Content</h3>', 'roots' );
+			get_template_part('archive');
+			echo '</div>';
+		}
 
     	$wp_query = $query_holder;
 	}
