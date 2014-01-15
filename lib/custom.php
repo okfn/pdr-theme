@@ -319,9 +319,12 @@
     		$section = 'time';
     	}
 
-    	if ( $term && $section ) {
+    	if ($section ) {
     		$url = add_query_arg( array( $section => $section_term, $tax->query_var => $term->slug ), strtok( $_SERVER["REQUEST_URI"], '?' ) );
     	}
+    	// else if ( !$term && $section ) {
+
+    	// }
     	else {
     		$url = add_query_arg( $tax->query_var, $term->slug );
     	}
@@ -337,13 +340,13 @@
     add_filter('pdr_thumbnail_size', 'pdr_theme_thumbnail_size');
     function pdr_theme_thumbnail_size($size) {
     	// fb(is_home(), 'is_home');
-    	if ( is_feature_item() ) {
+    	if ( is_feature_item() && !is_singular('post') ) {
     		$size = 'pdr_home_article';
     	}
     	else if ( is_home_page() ) {
     		$size = 'thumbnail';
     	}
-    	else if ( is_grid() ) {
+    	else if ( is_grid() || is_singular('post') ) {
     		$size = 'pdr_large';
     	}
     	else  {
@@ -363,14 +366,14 @@
 
         $limit = true;
         
-        if ( ( is_feature_item() ) ) {
+        if ( ( is_feature_item() && !is_singular('post') ) ) {
         	$length = 300;
         	$limit = $post->post_excerpt ? false : true;
         }	
         elseif ( is_home_page() ) {
         	$length = 70;
         }
-        elseif ( is_grid() ) {
+        elseif ( is_grid() || is_singular('post') ) {
         	$length = 150;
         }
         else {
@@ -502,4 +505,25 @@
 	add_shortcode('tag_cloud', 'tag_cloud_shortcode');
 	function tag_cloud_shortcode( $atts ) {
 		return wp_tag_cloud(array('echo' => false));
+	}
+
+
+/*  ==========================================================================
+    The featured articles shown in the sidebars on single article pages
+    ========================================================================== */
+	add_action('after_sidebar_left', 'featured_articles_sidebar');
+	add_action('after_sidebar_right', 'featured_articles_sidebar');
+	function featured_articles_sidebar($id) {
+		global $post;
+		$post_holder = $post;
+		$side = strpos(current_filter(), 'right') ? true : false;
+		
+		foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1 ) ) as $k => $post ) {
+			if ( $side == ($k & 1) ) {
+				setup_postdata( $post );
+				get_template_part( 'templates/content');
+			}
+		}
+		$post = $post_holder;
+		setup_postdata( $post );
 	}

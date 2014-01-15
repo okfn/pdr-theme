@@ -1,5 +1,6 @@
 <div class="row taxonomy-nav nav-collapse">
 	<ul class="taxonomies nav navbar-nav">
+		<li><a href="<?php echo apply_filters('taxonomy_nav_url', $url, false, false); ?>"><?php _e('All', 'roots') ?></a></li>
 	<?php foreach ( (array) $taxonomies as $tax): ?>
 		<?php if ( !in_array( $tax->name, array('medium', 'post_tag', 'source', 'collections_tag') ) ): ?>
 			<li class="dropdown tax-<?php echo $tax->name; ?>">
