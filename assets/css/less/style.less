@@ -162,6 +162,7 @@
 
                 .article-inner {
                     border-bottom: 1px solid @gray-light;
+                    padding-bottom: 7px;
                 }
 
                 &.list-item-3, &.list-item-4 {
@@ -243,6 +244,8 @@
     article {
         h2 {
             margin-top: 0;
+            font-size: 1.857142857em;
+            text-transform: uppercase;
         }
 
         .media-object {
@@ -252,21 +255,22 @@
         &.regular-list-item {
 
             .entry-title {
-                font-size: 1em;
+                font-size: 0.892857143em;
                 font-weight: bold;
                 font-style: italic;
                 text-transform: uppercase;
                 margin-bottom: .1em;
             }
             .entry-summary {
-                font-size: .9em;
+                font-size: 0.857142857em;
+                line-height: 1.3em;
             }
         }
     }
 
     .archive-link-container {
         .make-full;
-        margin-bottom: 1em;
+        // margin-bottom: 1em;
 
         .archive-link {
             .no-hover;
@@ -280,10 +284,12 @@
     }
 
     .collection-header {
-        margin: -16px 0 2em;
+        margin: 0 0 .7em;
         height: 1.2em;
         border-bottom: 1px solid @gray;
         text-align: center;
+        position: relative;
+        top: -14px;
 
         h3 {
             margin: 0;
@@ -291,6 +297,10 @@
             background: #fff;
             padding: 0 1em;
             font-style: italic;
+
+            span {
+                text-transform: uppercase;
+            }
         }
     }
 
@@ -312,9 +322,11 @@
                     text-align: center;
 
                     h2 {
-                        margin-bottom: .1em;
-                        line-height: 1.2em;
+                        margin: 10px 15px;
+                        line-height: 1.4em;
                         color: #fff;
+                        font-size: 1.5em;
+                        font-weight: normal;
                     }
                 }
             }
@@ -358,7 +370,7 @@
         .nav {
             li {
                 text-transform: uppercase;
-                font-size: 1.5em;
+                font-size: 1.428571429em;
                 line-height: 2em;
 
                 &:last-child {

@@ -514,16 +514,40 @@
 	add_action('after_sidebar_left', 'featured_articles_sidebar');
 	add_action('after_sidebar_right', 'featured_articles_sidebar');
 	function featured_articles_sidebar($id) {
-		global $post;
-		$post_holder = $post;
-		$side = strpos(current_filter(), 'right') ? true : false;
-		
-		foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1, 'post__not_in' => array($post_holder->ID) ) ) as $k => $post ) {
-			if ( $side == ($k & 1) ) {
-				setup_postdata( $post );
-				get_template_part( 'templates/content');
+
+		if ( is_singular('post') ) {
+			global $post;
+			$post_holder = $post;
+			$side = strpos(current_filter(), 'right') ? true : false;
+			
+			foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1, 'post__not_in' => array($post_holder->ID) ) ) as $k => $post ) {
+				if ( $side == ($k & 1) ) {
+					setup_postdata( $post );
+					get_template_part( 'templates/content');
+				}
 			}
+			$post = $post_holder;
+			setup_postdata( $post );
 		}
-		$post = $post_holder;
-		setup_postdata( $post );
 	}
+
+
+/*  ==========================================================================
+    Limit title lengths on homepage
+    ========================================================================== */
+
+    add_action('wp', 'setup_homepage_title_length');
+    function setup_homepage_title_length() {
+    	if ( is_front_page() )
+    		add_filter('the_title', 'homepage_title_length');
+    }
+
+    
+    function homepage_title_length($title) {
+    	
+	    	if ( !is_feature_item() ) {
+	    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
+			}
+		
+    	return $title;
+    }
