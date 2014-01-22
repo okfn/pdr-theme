@@ -449,7 +449,7 @@
 
 		switch ($post_medium[0]->slug) {
 			case 'image':
-				$related_tax = "style";
+				$related_tax = "content";
 				break;
 			case 'audio':
 				$related_tax = "genre";
