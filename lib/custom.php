@@ -551,13 +551,21 @@
 
 
 /*  ==========================================================================
-    An intro section on the collections landing page
+    An intro section on the collections and articles landing page
     ========================================================================== */
 
     add_action('before_achive', 'collections_landing_intro');
     function collections_landing_intro() {
     	if ( is_post_type_archive('collections') ) {
     		$page = get_page_by_title('collections');
+    		echo apply_filters('the_content', $page->post_content);
+    	}
+    }
+
+    add_action('before_achive', 'articles_landing_intro');
+    function articles_landing_intro() {
+    	if ( is_home() ) {
+    		$page = get_page_by_title('articles');
     		echo apply_filters('the_content', $page->post_content);
     	}
     }
