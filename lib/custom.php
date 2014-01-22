@@ -465,7 +465,6 @@
 		if ( is_array($post_terms) ) {
 			$args['tax_query']['relation'] = 'OR';
 			foreach ( $post_terms as $term ) {
-				fb($term);
 				if ( $related_tax == $term->taxonomy ) {
 					$args['tax_query'][] = array(
 						'taxonomy' => $term->taxonomy,
