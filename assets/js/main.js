@@ -14,12 +14,19 @@
 		}
 	}
 
-	function collections_sidebar_heights() {
+	function collections_sidebar_heights_desktop() {
 		if( Modernizr.mq('screen and (min-width:768px)') ) {
 			$('.home-collection').each(function(){
 				$(this).find('.main, .sidebar, .sidebar .widget-inner').equalHeights();
 			});
-			// $('.home-collection > *').equalHeights();
+		}
+	}
+
+	function collections_sidebar_heights_mobile() {
+		if( Modernizr.mq('screen and (max-width:767px)') ) {
+			$('.home-collection').each(function(){
+				$(this).find('.sidebar, .sidebar .widget-inner').equalHeights();
+			});
 		}
 	}
 
@@ -36,12 +43,15 @@
         clearTimeout(id);
         id = setTimeout(homepage_box_heights, 0);
         id = setTimeout(collections_box_heights, 0);
-        id = setTimeout(collections_sidebar_heights, 0);
+        id = setTimeout(collections_sidebar_heights_desktop, 0);
+        id = setTimeout(collections_sidebar_heights_mobile, 0);
+        
     });
 
     homepage_box_heights();
     collections_box_heights();
-    collections_sidebar_heights();
+    collections_sidebar_heights_desktop();
+    collections_sidebar_heights_mobile();
 	
 })(jQuery);
 
