@@ -542,12 +542,19 @@
     		add_filter('the_title', 'homepage_title_length');
     }
 
-    
     function homepage_title_length($title) {
-    	
-	    	if ( !is_feature_item() ) {
-	    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
-			}
-		
+    	if ( !is_feature_item() ) {
+    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
+		}
     	return $title;
+    }
+
+
+
+    add_action('before_achive', 'collections_landing_intro');
+    function collections_landing_intro() {
+    	if ( is_post_type_archive('collections') ) {
+    		$page = get_page_by_title('collections');
+    		echo apply_filters('the_content', $page->post_content);
+    	}
     }
