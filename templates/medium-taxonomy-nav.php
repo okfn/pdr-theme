@@ -6,7 +6,17 @@
 			<li class="dropdown tax-<?php echo $tax->name; ?>">
 				<a href="#<?php echo $tax->name; ?>" data-target="#" data-toggle="dropdown" class="dropdown-toggle"><?php echo $tax->labels->name; ?></a>
 				<ul class="dropdown-menu">
-					<?php foreach ( get_terms( $tax->name ) as $term ): ?>
+					<?php foreach ( get_terms( $tax->name ) as $term ): //fb($term); ?>
+						<?php 
+						$posts =  get_posts( array( 
+							$tax->name => $term->slug, 
+							'medium' => get_query_var('medium'),
+							'post_type' => get_query_var('post_type') 
+						) ); 
+
+						if ( empty($posts) )
+							continue;
+						?>
 						<li class="term-<?php echo $term->slug ?>"><a href="<?php echo apply_filters('taxonomy_nav_url', $url, $tax, $term); ?>"><?php echo $term->name ?></a></li>
 					<?php endforeach; ?>
 				</ul>

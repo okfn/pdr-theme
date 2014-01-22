@@ -23,6 +23,14 @@
 		}
 	}
 
+	if ( $('.taxonomy-nav').length ) {
+		$('.taxonomy-nav .dropdown-menu').each(function() {
+			if ( !$(this).children().length ) {
+				$(this).closest('.dropdown').remove();
+			}
+		});
+	}
+
 	var id;
     $(window).resize(function() {
         clearTimeout(id);
