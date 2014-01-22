@@ -550,6 +550,9 @@
     }
 
 
+/*  ==========================================================================
+    An intro section on the collections landing page
+    ========================================================================== */
 
     add_action('before_achive', 'collections_landing_intro');
     function collections_landing_intro() {
