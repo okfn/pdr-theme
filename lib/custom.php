@@ -438,6 +438,7 @@
 			return;
 
 		$post_terms = wp_get_post_terms( $post->ID, get_taxonomies() );
+		$post_medium = wp_get_post_terms( $post->ID, 'medium' );
     	$query_holder = $wp_query;
 
     	$args = array(
@@ -446,17 +447,34 @@
     		'post__not_in' => array($post->ID)
 		);
 
+		switch ($post_medium[0]->slug) {
+			case 'image':
+				$related_tax = "style";
+				break;
+			case 'audio':
+				$related_tax = "genre";
+				break;
+			case 'film':
+				$related_tax = "genre";
+				break;
+			case 'book':
+				$related_tax = "genre";
+				break;
+		}
+
 		if ( is_array($post_terms) ) {
-			$args['tax_query']['relation'] = 'AND';
+			$args['tax_query']['relation'] = 'OR';
 			foreach ( $post_terms as $term ) {
-				$args['tax_query'][] = array(
-					'taxonomy' => $term->taxonomy,
-					'field' => 'slug',
-					'terms' => $term->slug
-				);
+				fb($term);
+				if ( $related_tax == $term->taxonomy ) {
+					$args['tax_query'][] = array(
+						'taxonomy' => $term->taxonomy,
+						'field' => 'slug',
+						'terms' => $term->slug
+					);
+				}
 			}
 		}
-		// fb($args, 'args');
     	$wp_query = new WP_Query($args);
 
     	if ( have_posts() ) {
