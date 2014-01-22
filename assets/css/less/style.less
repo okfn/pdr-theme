@@ -718,4 +718,33 @@
         }
     }
 
+
+
+    .search-results {
+        .search-form,
+        .search-form + p {
+            text-align: center;
+        }
+
+        .search-form {
+            margin-bottom: .5em;
+            .clearfix;
+        }
+
+        input,
+        button {
+            height: 3em;
+            font-size: 1.1em;
+        }
+
+        input {
+            .make-xs-column(10);
+            .make-sm-column(10);
+        }
+        button {
+            .make-xs-column(2);
+            .make-sm-column(2);
+        }
+    }
+
     @import "responsive"; // Allow responsive tweaks to override last
