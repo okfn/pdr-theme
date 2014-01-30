@@ -19,6 +19,10 @@
 				});
 			}
 
+			if ( $('.home .row:first-child').length ) {
+				$('.home .row:first-child').find('.feature-list-item .media-object, .sidebar .widget:first-child .widget-inner').equalHeights();
+			}
+
 
 			if( Modernizr.mq('screen and (max-width:767px)') ) {
 				if ( $('.home-collection').length ) {
