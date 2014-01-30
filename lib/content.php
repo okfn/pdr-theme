@@ -365,13 +365,14 @@
     	register_taxonomy_for_object_type( 'post_tag', 'collections' );
     }
 
-    add_filter('term_link', 'collections_tags_link', 100, 3);
-    function collections_tags_link($termlink, $term, $taxonomy) {
+    add_filter('term_link', 'collections_term_link', 100, 3);
+    function collections_term_link($termlink, $term, $taxonomy) {
     	global $post;
     	if ( ( is_post_type_archive('collections') || ( get_post_type($post) == 'collections' ) )
-    		&& ( 'post_tag' == $taxonomy ) 
+    		&& ( in_array( $taxonomy, array( 'post_tag', 'rights_label', 'collections_categories', 'source', 'type', 'content', 'genre', 'style', 'time', 'medium') ) )
     		) {
-    		$termlink = add_query_arg( 'tag', $term->slug, get_post_type_archive_link( 'collections' ) );
+	    	$tax = get_taxonomy($taxonomy);
+    		$termlink = add_query_arg( $tax->query_var, $term->slug, get_post_type_archive_link( 'collections' ) );
     	}    	
     	return $termlink;
     }
