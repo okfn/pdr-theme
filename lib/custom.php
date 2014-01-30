@@ -323,7 +323,7 @@
     	}
 
     	if ($section ) {
-    		$url = add_query_arg( array( $section => $section_term, $tax->query_var => $term->slug ), strtok( $_SERVER["REQUEST_URI"], '?' ) );
+    		$url = add_query_arg( array( $section => $section_term, $tax->query_var => $term->slug ), get_post_type_archive_link( 'collections' ) );
     	}
     	// else if ( !$term && $section ) {
 
