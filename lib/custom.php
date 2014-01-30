@@ -531,7 +531,7 @@
 	
 	add_shortcode('tag_cloud', 'tag_cloud_shortcode');
 	function tag_cloud_shortcode( $atts ) {
-		return wp_tag_cloud(array('echo' => false));
+		return wp_tag_cloud(array('echo' => false, 'number' => 250));
 	}
 
 
@@ -612,3 +612,13 @@
     Supress the cgview shortcode
     ========================================================================== */
 	add_shortcode('cgview', '__return_false');
+
+
+	add_filter('browse_by_tag_link', 'browse_by_tag_link');
+	function browse_by_tag_link($link) {
+		$page = get_page_by_title('Browse by Tag');
+		fb($page);
+		return get_permalink($page->ID);
+	}
+
+	
