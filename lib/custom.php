@@ -367,23 +367,23 @@
         $limit = true;
         
         if ( ( is_feature_item() && !is_singular('post') ) ) {
-        	$length = 300;
+        	$length = 50;
         	$limit = $post->post_excerpt ? false : true;
         }	
         elseif ( is_home_page() ) {
-        	$length = 70;
+        	$length = 12;
         }
         elseif ( is_grid() || is_singular('post') ) {
-        	$length = 150;
+        	$length = 25;
         }
         else {
-        	$length = 70;
+        	$length = 12;
         }
 
         if ( $limit ) {
         	$excerpt = $post->post_excerpt ? 
-	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, false, false, false), '', '&hellip;'.__('Continued', 'roots') ) : 
-	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
+	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, true, false, false), '', '&hellip;'.__('Continued', 'roots') ) : 
+	        	the_advanced_excerpt( array( 'use_words' => true, 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
         else {
@@ -392,7 +392,7 @@
 	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
-
+        
         echo $excerpt;
     }
 
