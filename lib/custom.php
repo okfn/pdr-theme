@@ -97,33 +97,36 @@
 
 	add_action('inside_after_content', 'homepage_articles_end', 10);
 	function homepage_articles_end() {
-		if ( is_home() ) {
+		if ( is_front_page() ) {
 			global $wp_query, $query_holder;
 	    	$wp_query = $query_holder;
 	    }
 	}
 	
-	
-	add_action('after_content', 'homepage_lists', 10);
-    function homepage_lists() {
-    	if ( is_front_page() ) {
-	    	global $wp_query;
-	    	$query_holder = $wp_query;
-	    	$mediums = get_terms( 'medium' );
-
-	    	foreach ( $mediums as $medium ) {
-		    	$wp_query = new WP_Query(array(
-		    		'post_type' => 'collections',
-		    		'posts_per_page' => 5,
-		    		'medium' => $medium->slug
-				));
-				get_template_part( 'templates/homepage', 'collection' );
-			}
-
-			$wp_query = $query_holder;
-			wp_reset_postdata();
+	add_action('wp', 'init_homepage_lists');
+	function init_homepage_lists() {
+		if ( is_front_page() ) {
+			add_action('after_content', 'homepage_lists', 10);
 		}
-    }
+	}
+	
+    function homepage_lists() {
+    	global $wp_query;
+    	$query_holder = $wp_query;
+    	$mediums = get_terms( 'medium' );
+
+    	foreach ( $mediums as $medium ) {
+	    	$wp_query = new WP_Query(array(
+	    		'post_type' => 'collections',
+	    		'posts_per_page' => 5,
+	    		'medium' => $medium->slug
+			));
+			get_template_part( 'templates/homepage', 'collection' );
+		}
+
+		$wp_query = $query_holder;
+		wp_reset_postdata();
+	}
 
  //    function feature_excerpt_length() {
  //    	return 45;
