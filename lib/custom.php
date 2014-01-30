@@ -369,14 +369,14 @@
 
         $limit = true;
         
-        if ( ( is_feature_item() && !is_singular('post') ) ) {
+        if ( ( is_feature_item() || is_singular('post') ) ) {
         	$length = 50;
         	$limit = $post->post_excerpt ? false : true;
         }	
         elseif ( is_home_page() ) {
         	$length = 12;
         }
-        elseif ( is_grid() || is_singular('post') ) {
+        elseif ( is_grid() ) {
         	$length = 25;
         }
         else {
@@ -442,6 +442,7 @@
 
 		$post_terms = wp_get_post_terms( $post->ID, get_taxonomies() );
 		$post_medium = wp_get_post_terms( $post->ID, 'medium' );
+		$post_categories = wp_get_post_terms( $post->ID, 'collections_categories' );
     	$query_holder = $wp_query;
 
     	$args = array(
@@ -450,20 +451,26 @@
     		'post__not_in' => array($post->ID)
 		);
 
-		switch ($post_medium[0]->slug) {
-			case 'image':
-				$related_tax = "content";
-				break;
-			case 'audio':
-				$related_tax = "genre";
-				break;
-			case 'film':
-				$related_tax = "genre";
-				break;
-			case 'book':
-				$related_tax = "genre";
-				break;
+		if ( $post_medium ) {
+			switch ($post_medium[0]->slug) {
+				case 'image':
+					$related_tax = "content";
+					break;
+				case 'audio':
+					$related_tax = "genre";
+					break;
+				case 'film':
+					$related_tax = "genre";
+					break;
+				case 'book':
+					$related_tax = "genre";
+					break;
+			}
 		}
+		else if ( has_term( 'animated-gifs', 'collections_categories', $post ) || has_term( 'curators-choice', 'collections_categories', $post ) ) {
+			$related_tax = "collections_categories";
+		}
+
 
 		if ( is_array($post_terms) ) {
 			$args['tax_query']['relation'] = 'OR';
