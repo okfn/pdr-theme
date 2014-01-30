@@ -586,3 +586,15 @@
     		echo apply_filters('the_content', $page->post_content);
     	}
     }
+
+/*  ==========================================================================
+    Hide the admin bar
+    ========================================================================== */
+
+    add_action('init', 'hide_admin_bar');
+    function hide_admin_bar() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			show_admin_bar( false );
+		}
+    }
+    
