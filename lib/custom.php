@@ -591,11 +591,11 @@
     Hide the admin bar
     ========================================================================== */
 
-    add_action('init', 'hide_admin_bar');
-    function hide_admin_bar() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+    // add_action('init', 'hide_admin_bar');
+    // function hide_admin_bar() {
+		// if ( ! current_user_can( 'manage_options' ) ) {
 			show_admin_bar( false );
 			add_filter('show_admin_bar', '__return_false');
-		}
-    }
+		// }
+    // }
     
