@@ -561,7 +561,8 @@
 
     function homepage_title_length($title) {
     	if ( !is_feature_item() ) {
-    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
+    		if ( strlen($title) > 50 )
+	    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
 		}
     	return $title;
     }
