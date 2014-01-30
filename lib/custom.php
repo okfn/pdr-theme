@@ -592,8 +592,10 @@
     Hide the admin bar
     ========================================================================== */
 
-	show_admin_bar( false );
-	add_filter('show_admin_bar', '__return_false');
+    if ( ! current_user_can( 'manage_options' ) ) {
+		show_admin_bar( false );
+		add_filter('show_admin_bar', '__return_false');
+	}
 
 
 /*  ==========================================================================
