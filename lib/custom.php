@@ -279,11 +279,11 @@
 			include(locate_template('templates/tag-cloud.php'));
 	}
 
-	// add_action('after_single_content', 'collections_single_tag_cloud');
-	// function collections_tag_landing_tag_cloud() {
-	// 	if ( is_tax( 'post_tag' ) )
-	// 		include(locate_template('templates/tag-cloud.php'));
-	// }
+	add_action('after_single_content', 'collections_single_tag_cloud');
+	function collections_single_tag_cloud() {
+		if ( 'collections' == get_post_type() )
+			include(locate_template('templates/tag-cloud.php'));
+	}
 
 	
 
