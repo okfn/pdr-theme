@@ -367,10 +367,11 @@
 
     add_filter('term_link', 'collections_tags_link', 100, 3);
     function collections_tags_link($termlink, $term, $taxonomy) {
-    	if ( is_post_type_archive('collections') 
-    		//&& ( 'collections_tag' == $taxonomy ) 
+    	global $post;
+    	if ( ( is_post_type_archive('collections') || ( get_post_type($post) == 'collections' ) )
+    		&& ( 'post_tag' == $taxonomy ) 
     		) {
-    		$termlink = add_query_arg( 'collections_tag', $term->slug, get_post_type_archive_link( 'collections' ) );
+    		$termlink = add_query_arg( 'tag', $term->slug, get_post_type_archive_link( 'collections' ) );
     	}    	
     	return $termlink;
     }

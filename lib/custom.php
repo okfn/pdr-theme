@@ -270,20 +270,20 @@
 	add_action('collections_archive_content', 'collections_tag_cloud');
 	function collections_tag_cloud() {
 		if ( is_post_type_archive('collections') )
-			include(locate_template('templates/collections-tag-cloud.php'));
+			include(locate_template('templates/tag-cloud.php'));
 	}
 
 	add_action('after_achive', 'tag_landing_tag_cloud');
 	function tag_landing_tag_cloud() {
 		if ( is_tag() )
-			include(locate_template('templates/posts-tag-cloud.php'));
+			include(locate_template('templates/tag-cloud.php'));
 	}
 
-	add_action('after_achive', 'collections_tag_landing_tag_cloud');
-	function collections_tag_landing_tag_cloud() {
-		if ( is_tax( 'collections_tag' ) )
-			include(locate_template('templates/collections-tag-cloud.php'));
-	}
+	// add_action('after_single_content', 'collections_single_tag_cloud');
+	// function collections_tag_landing_tag_cloud() {
+	// 	if ( is_tax( 'post_tag' ) )
+	// 		include(locate_template('templates/tag-cloud.php'));
+	// }
 
 	
 
