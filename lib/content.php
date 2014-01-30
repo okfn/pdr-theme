@@ -123,7 +123,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'medium' ),
 		) );
-		register_taxonomy( 'medium', array('collections', 'post'), $args );
+		register_taxonomy( 'medium', array('collections'), $args );
 
     	// Time (Centuries)
 		$labels = array(
@@ -148,7 +148,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'time' ),
 		) );
-		register_taxonomy( 'time', array('collections', 'post'), $args );
+		register_taxonomy( 'time', array('collections'), $args );
 
 		// Styles
 		$labels = array(
@@ -173,7 +173,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'style' ),
 		) );
-		register_taxonomy( 'style', array('collections', 'post'), $args );
+		register_taxonomy( 'style', array('collections'), $args );
 
 
 		// Genres
@@ -199,7 +199,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'genre' ),
 		) );
-		register_taxonomy( 'genre', array('collections', 'post'), $args );
+		register_taxonomy( 'genre', array('collections'), $args );
 
 
 		// Content
@@ -225,7 +225,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'content' ),
 		) );
-		register_taxonomy( 'content', array('collections', 'post'), $args );
+		register_taxonomy( 'content', array('collections'), $args );
 
 		// Types
 		$labels = array(
@@ -250,7 +250,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'type' ),
 		) );
-		register_taxonomy( 'type', array('collections', 'post'), $args );
+		register_taxonomy( 'type', array('collections'), $args );
 
 		// Sources
 		$labels = array(
@@ -275,7 +275,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'source' ),
 		) );
-		register_taxonomy( 'source', array('collections', 'post'), $args );
+		register_taxonomy( 'source', array('collections'), $args );
 
 
 		// Collections Tags
@@ -328,7 +328,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'collections_categories' ),
 		) );
-		register_taxonomy( 'collections_categories', array('collections', 'post'), $args );
+		register_taxonomy( 'collections_categories', array('collections'), $args );
 
 
 		// Rights Labelling
@@ -354,7 +354,7 @@
 			'labels'                => $labels,
 			'rewrite'               => array( 'slug' => 'rights_label' ),
 		) );
-		register_taxonomy( 'rights_label', array('collections', 'post'), $args );
+		register_taxonomy( 'rights_label', array('collections'), $args );
 
 
     }
