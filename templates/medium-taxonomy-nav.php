@@ -2,7 +2,7 @@
 	<ul class="taxonomies nav navbar-nav">
 		<li><a href="<?php echo apply_filters('taxonomy_nav_url', $url, false, false); ?>"><?php _e('All', 'roots') ?></a></li>
 	<?php foreach ( (array) $taxonomies as $tax): ?>
-		<?php if ( !in_array( $tax->name, array('medium', 'post_tag', 'source', 'collections_tag') ) ): ?>
+		<?php if ( !in_array( $tax->name, array('medium', 'post_tag', 'source', 'collections_tag', 'collections_categories') ) ): ?>
 			<li class="dropdown tax-<?php echo $tax->name; ?>">
 				<a href="#<?php echo $tax->name; ?>" data-target="#" data-toggle="dropdown" class="dropdown-toggle"><?php echo $tax->labels->name; ?></a>
 				<ul class="dropdown-menu">
