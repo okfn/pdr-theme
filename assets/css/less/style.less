@@ -481,18 +481,27 @@
                         }
                     }
 
+                    &.source {
+
+                        a {
+                            span {
+                                display: block;
+                            }
+                        }
+                    }
+
                     a {
                         position: relative;
                         display: block;
 
                         span {
                             display: none;
-                            position: absolute;
+                            // position: absolute;
                             width: 100%;
-                            top: 50%;
-                            margin-top: -.8em;
-                            font-size: 2em;
-                            color: #fff;
+                            // top: 50%;
+                            // margin-top: -.8em;
+                            font-size: 1em;
+                            // color: #fff;
                             text-align: center;
                             text-transform: uppercase;
                         }
@@ -502,12 +511,9 @@
         }
 
         &.collections-landing-source {
-            .inner {
-                padding: 1em;
-
-                .sources {
-                    padding: 2em 1em 0 1em;
-                    background: @gray-lighter;
+            .source {
+                &:nth-child(2n+1) {
+                    clear: left;
                 }
             }
         }

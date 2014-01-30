@@ -5,7 +5,7 @@
 			<?php foreach ( get_terms( $tax->name, array('parent' => 0) ) as $term): ?>
 				<div class="<?php echo $tax->name ?>">
 					<a href="<?php echo add_query_arg( $tax->query_var, $term->slug, get_post_type_archive_link( get_post_type() ) ) ?>">
-						<?php if (function_exists('z_taxonomy_image_url')): ?>
+						<?php if (function_exists('z_taxonomy_image_url') && ( $term->taxonomy != 'source' ) ): ?>
 							<img src="<?php echo z_taxonomy_image_url($term->term_id); ?>" />
 						<?php endif; ?>
 						<span><?php echo $term->name; ?></span>
