@@ -614,10 +614,13 @@
 	add_shortcode('cgview', '__return_false');
 
 
+/*  ==========================================================================
+    Browse by tag page
+    ========================================================================== */
+
 	add_filter('browse_by_tag_link', 'browse_by_tag_link');
 	function browse_by_tag_link($link) {
 		$page = get_page_by_title('Browse by Tag');
-		fb($page);
 		return get_permalink($page->ID);
 	}
 
