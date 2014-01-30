@@ -42,6 +42,12 @@
 		});
 	}
 
+	if( Modernizr.mq('screen and (min-width:768px)') ) {
+		$('a.dropdown-toggle').click(function(){
+			window.location = $(this).attr('href');
+		});
+	}
+
 	var id;
     $(window).resize(function() {
         clearTimeout(id);
