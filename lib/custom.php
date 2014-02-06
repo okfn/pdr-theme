@@ -596,7 +596,8 @@
     add_action('before_achive', 'articles_landing_intro');
     function articles_landing_intro() {
     	if ( is_home() ) {
-    		$page = get_page_by_title('articles');
+    		$page = get_post(get_option('page_for_posts' ));
+    		// $page = get_page_by_title('articles');
     		echo apply_filters('the_content', $page->post_content);
     	}
     }
