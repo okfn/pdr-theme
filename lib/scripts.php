@@ -16,6 +16,7 @@ function roots_scripts() {
     // wp_enqueue_style('roots_bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.css', false, null);
     // wp_enqueue_style('roots_app', get_template_directory_uri() . '/assets/css/app.css', false, null);
 
+    wp_enqueue_style('crimson_font', 'http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700', false, null);
     wp_enqueue_style('pdr_style', get_template_directory_uri() . '/assets/css/style.min.css', false, null);
 
     // jQuery is loaded using the same method from HTML5 Boilerplate:
