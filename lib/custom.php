@@ -284,10 +284,11 @@
 
 	add_action('after_single_content', 'collections_single_tags');
 	function collections_single_tags() {
-		if ( 'collections' == get_post_type() )
+		if ( 'collections' == get_post_type() ) {
 			echo '<div class="collection-tags">';
 			the_tags();
 			echo '</div>';
+		}
 	}
 
 	
