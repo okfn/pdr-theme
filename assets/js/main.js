@@ -56,6 +56,7 @@
 
     $(window).load(function() {
 		fix_heights();
+		setTimeout(fix_heights, 3000);
     });
 
     fix_heights();
