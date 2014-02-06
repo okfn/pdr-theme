@@ -219,8 +219,8 @@
 	}
 
 
-	add_action('before_achive', 'taxonomy_nav', 11);
-	function taxonomy_nav() {
+	add_action('before_achive', 'collections_taxonomy_nav', 11);
+	function collections_taxonomy_nav() {
 		if ( !is_post_type_archive('collections') ) {
 			if ( get_query_var('medium') ) {
 				$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
@@ -232,8 +232,16 @@
 
 				include(locate_template('templates/time-taxonomy-nav.php'));
 			}
-				
-			
+		}
+	}
+
+	add_action('before_achive', 'articles_taxonomy_nav', 11);
+	function articles_taxonomy_nav() {
+		if ( !is_post_type_archive('post') ) {
+				$tax = get_taxonomy( 'category' );
+				$term = get_term_by( 'slug', $time, 'category');
+
+				include(locate_template('templates/taxonomy-nav.php'));
 		}
 	}
 
