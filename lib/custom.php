@@ -282,10 +282,12 @@
 			include(locate_template('templates/tag-cloud.php'));
 	}
 
-	add_action('after_single_content', 'collections_single_tag_cloud');
-	function collections_single_tag_cloud() {
+	add_action('after_single_content', 'collections_single_tags');
+	function collections_single_tags() {
 		if ( 'collections' == get_post_type() )
-			include(locate_template('templates/tag-cloud.php'));
+			echo '<div class="collection-tags">';
+			the_tags();
+			echo '</div>';
 	}
 
 	
