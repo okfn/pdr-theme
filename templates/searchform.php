@@ -3,4 +3,4 @@
 	<label class="hide"><?php _e('Search for:', 'roots'); ?></label>
 	<button type="submit" class="search-submit"><?php _e('Search', 'roots'); ?></button>
 </form>
-<p><a href="<?php echo apply_filters('browse_by_tag_link', $link); ?>"><?php _e('..or BROWSE BY TAG') ?></p></a>
+<p><a href="<?php echo apply_filters('browse_by_tag_link', $link); ?>"><?php _e('..or BROWSE BY TAG') ?></a></p>
