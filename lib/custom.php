@@ -303,6 +303,15 @@
 		}
 	}
 
+	add_action('pre_get_posts', 'tags_post_types');
+	function tags_post_types($query) {
+		if ( !is_admin() && $query->is_main_query() ) {
+			if ( is_tag() && ( $query->query['post_type'] != 'collections' ) ) {
+				$query->set('post_type', array('post', 'collections' ) );
+			}
+		}
+	}
+
 	
 
 
