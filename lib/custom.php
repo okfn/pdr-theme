@@ -100,6 +100,7 @@
 		if ( is_front_page() ) {
 			global $wp_query, $query_holder;
 	    	$wp_query = $query_holder;
+	    	wp_reset_query();
 	    }
 	}
 	
@@ -126,6 +127,7 @@
 
 		$wp_query = $query_holder;
 		wp_reset_postdata();
+		wp_reset_query();
 	}
 
  //    function feature_excerpt_length() {
@@ -505,6 +507,7 @@
 		}
 
     	$wp_query = $query_holder;
+		wp_reset_query();
 	}
 
 /*  ==========================================================================
