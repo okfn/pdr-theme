@@ -353,7 +353,7 @@
 
     	// }
     	else {
-    		$url = add_query_arg( $tax->query_var, $term->slug );
+    		$url = add_query_arg( array($tax->query_var => $term->slug), get_permalink( get_option('page_for_posts' ) ) );
     	}
 
     	return $url;
