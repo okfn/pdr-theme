@@ -239,7 +239,9 @@
 
 	add_action('before_achive', 'articles_taxonomy_nav', 11);
 	function articles_taxonomy_nav() {
-		if ( !is_post_type_archive('post') ) {
+		if ( !is_post_type_archive('post') 
+			&& 'post' == get_post_type()
+			) {
 				$tax = get_taxonomy( 'category' );
 				$term = get_term_by( 'slug', $time, 'category');
 
