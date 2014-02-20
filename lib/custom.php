@@ -250,7 +250,7 @@
 	}
 
 	function show_collection_sidebars() {
-		if ( is_front_page() || !is_main_query() || is_singular('post') ) 
+		if ( is_front_page() || !is_main_query() || is_singular('post') || is_page_template('page-sidebars.php') ) 
 			return false;
 		else 
 			return true;
