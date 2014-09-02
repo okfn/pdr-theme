@@ -13,7 +13,7 @@
 	function pdr_list_item_number_post_class($classes) {
 		global $post, $wp_query;
 		$key = get_article_list_item_number($post, $wp_query->posts);
-		if ( isset( $key ) ) 
+		if ( isset( $key ) )
 			$classes[] = 'list-item-'.$key;
 		return $classes;
 	}
@@ -22,7 +22,7 @@
 	function pdr_list_item_feature_post_class($classes) {
 		if ( is_feature_item() )
 			$classes[] = 'feature-list-item';
-		else 
+		else
 			$classes[] = 'regular-list-item';
 		return $classes;
 	}
@@ -45,7 +45,7 @@
 		global $post, $wp_query;
 		$key = get_article_list_item_number($post, $wp_query->posts);
 		$in_a_set = 5;
-		
+
 		if ( !show_collection_sidebars() && ( ( ( $key >= $in_a_set ) && ( $key % 5 ) === 0 ) || $key == 0 ) )
 			return true;
 		else return false;
@@ -74,7 +74,7 @@
 			return Roots_Wrapping::wrap(locate_template('index.php'));
 		elseif ( is_home() ) // Use the archive page for our blog page
 			return Roots_Wrapping::wrap(locate_template('archive.php'));
-		else 
+		else
 			return $template;
 	}
 
@@ -87,7 +87,7 @@
 		if ( is_front_page() ) {
 			global $wp_query, $query_holder;
 	    	$query_holder = $wp_query;
-	    	
+
 	    	$wp_query = new WP_Query(array(
 	    		'post_type' => 'post',
 	    		'posts_per_page' => 5,
@@ -103,14 +103,14 @@
 	    	wp_reset_query();
 	    }
 	}
-	
+
 	add_action('wp', 'init_homepage_lists');
 	function init_homepage_lists() {
 		if ( is_front_page() ) {
 			add_action('after_content', 'homepage_lists', 10);
 		}
 	}
-	
+
     function homepage_lists() {
     	global $wp_query;
     	$query_holder = $wp_query;
@@ -196,7 +196,7 @@
 		$out = str_replace("class='wp-pagenavi'>","",$out);
 		$out = str_replace("<a","<li><a",$out);
 		$out = str_replace("</a>","</a></li>",$out);
-		$out = str_replace("<span","<li><span",$out);  
+		$out = str_replace("<span","<li><span",$out);
 		$out = str_replace("</span>","</span></li>",$out);
 		$out = str_replace("</div>","",$out);
 		return '<ul class="pagination">'.$out.'</ul>';
@@ -239,7 +239,7 @@
 
 	add_action('before_achive', 'articles_taxonomy_nav', 11);
 	function articles_taxonomy_nav() {
-		if ( !is_post_type_archive('post') 
+		if ( !is_post_type_archive('post')
 			&& 'post' == get_post_type()
 			) {
 				$tax = get_taxonomy( 'category' );
@@ -250,14 +250,14 @@
 	}
 
 	function show_collection_sidebars() {
-		if ( is_front_page() || !is_main_query() || is_singular('post') || is_page_template('page-sidebars.php') ) 
+		if ( is_front_page() || !is_main_query() || is_singular('post') || is_page_template('page-sidebars.php') )
 			return false;
-		else 
+		else
 			return true;
 	}
 
 	add_action('collections_archive_content', 'no_collections');
-	function no_collections() {		
+	function no_collections() {
 		if ( !is_post_type_archive('collections') ) {
         	get_template_part('templates/no', 'content');
 		}
@@ -265,7 +265,7 @@
 
 	add_action('collections_archive_content', 'collections_entries');
 	function collections_entries() {
-		if ( !is_post_type_archive('collections') ) {
+		if ( is_post_type_archive('collections') ) {
 			while (have_posts()) : the_post();
 	        	get_template_part('templates/content', get_post_format());
 			endwhile;
@@ -278,7 +278,7 @@
 			foreach ( array('medium', 'time') as $tax ) {
 				$tax = get_taxonomy($tax);
 				include(locate_template('templates/collection-landing.php'));
-			} 
+			}
 		}
 	}
 
@@ -312,7 +312,7 @@
 		}
 	}
 
-	
+
 
 
 	add_action('collections_archive_content', 'collections_sources');
@@ -359,7 +359,7 @@
     	return $url;
     }
 
-	
+
 /*  ==========================================================================
     PDR Thumbnail size
     ========================================================================== */
@@ -392,11 +392,11 @@
         global $post;
 
         $limit = true;
-        
+
         if ( ( is_feature_item() || is_singular('post') ) ) {
         	$length = 50;
         	$limit = $post->post_excerpt ? false : true;
-        }	
+        }
         elseif ( is_home_page() ) {
         	$length = 12;
         }
@@ -408,18 +408,18 @@
         }
 
         if ( $limit ) {
-        	$excerpt = $post->post_excerpt ? 
-	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, true, false, false), '', '&hellip;'.__('Continued', 'roots') ) : 
+        	$excerpt = $post->post_excerpt ?
+	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, true, false, false), '', '&hellip;'.__('Continued', 'roots') ) :
 	        	the_advanced_excerpt( array( 'use_words' => true, 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
         else {
-        	$excerpt = $post->post_excerpt ? 
-	        	AdvancedExcerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) : 
+        	$excerpt = $post->post_excerpt ?
+	        	AdvancedExcerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) :
 	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
-        
+
         echo $excerpt;
     }
 
@@ -533,10 +533,10 @@
 	function widget_bf_containers($params) {
 
 		if ( strpos( $params[0]['before_widget'], 'frame' ) ) {
-			
+
 			$params[0]['before_widget'] = str_replace(
-				'<div class="widget-inner">', 
-				'<div class="bf1"><div class="bf2"><div class="bf3"><div class="bf4"><div class="bf5"><div class="bf6"><div class="bf7"><div class="bf8"><div class="widget-inner">', 
+				'<div class="widget-inner">',
+				'<div class="bf1"><div class="bf2"><div class="bf3"><div class="bf4"><div class="bf5"><div class="bf6"><div class="bf7"><div class="bf8"><div class="widget-inner">',
 				$params[0]['before_widget']
 			);
 
@@ -546,14 +546,14 @@
 				$params[0]['after_widget']
 			);
 		}
-		
+
 		return $params;
 	}
 
 /*  ==========================================================================
     Tag cloud shortcode
-    ========================================================================== */	
-	
+    ========================================================================== */
+
 	add_shortcode('tag_cloud', 'tag_cloud_shortcode');
 	function tag_cloud_shortcode( $atts ) {
 		return wp_tag_cloud(array('echo' => false, 'number' => 250));
@@ -571,7 +571,7 @@
 			global $post;
 			$post_holder = $post;
 			$side = strpos(current_filter(), 'right') ? true : false;
-			
+
 			foreach ( get_posts( array( 'category_name' => 'featured-articles', 'posts_per_page' => -1, 'post__not_in' => array($post_holder->ID) ) ) as $k => $post ) {
 				if ( $side == ($k & 1) ) {
 					setup_postdata( $post );
@@ -650,4 +650,4 @@
 		return get_permalink($page->ID);
 	}
 
-	
+
