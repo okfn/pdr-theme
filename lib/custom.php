@@ -204,7 +204,7 @@
 
 	add_action('after_achive', 'show_pagination');
 	function show_pagination() {
-		if (!is_post_type_archive('collections'))
+		if (!check_collection_landing())
 			get_template_part('templates/pagination');
 	}
 
@@ -223,7 +223,7 @@
 
 	add_action('before_achive', 'collections_taxonomy_nav', 11);
 	function collections_taxonomy_nav() {
-		if ( !is_post_type_archive('collections') ) {
+		if ( !check_collection_landing() ) {
 			if ( get_query_var('medium') ) {
 				$taxonomies = get_object_taxonomies( get_query_var('post_type'), 'objects');
 				include(locate_template('templates/medium-taxonomy-nav.php'));
@@ -258,14 +258,14 @@
 
 	add_action('collections_archive_content', 'no_collections');
 	function no_collections() {
-		if ( !is_post_type_archive('collections') ) {
+		if ( !check_collection_landing('collections') ) {
         	get_template_part('templates/no', 'content');
 		}
 	}
 
 	add_action('collections_archive_content', 'collections_entries');
 	function collections_entries() {
-		if ( is_post_type_archive('collections') ) {
+		if ( ! check_collection_landing() ) {
 			while (have_posts()) : the_post();
 	        	get_template_part('templates/content', get_post_format());
 			endwhile;
@@ -274,7 +274,7 @@
 
 	add_action('collections_archive_content', 'collections_landing');
 	function collections_landing() {
-		if ( is_post_type_archive('collections') ) {
+		if ( check_collection_landing() ) {
 			foreach ( array('medium', 'time') as $tax ) {
 				$tax = get_taxonomy($tax);
 				include(locate_template('templates/collection-landing.php'));
@@ -284,7 +284,7 @@
 
 	add_action('collections_archive_content', 'collections_tag_cloud');
 	function collections_tag_cloud() {
-		if ( is_post_type_archive('collections') )
+		if ( check_collection_landing() )
 			include(locate_template('templates/tag-cloud.php'));
 	}
 
@@ -317,7 +317,7 @@
 
 	add_action('collections_archive_content', 'collections_sources');
 	function collections_sources() {
-		if ( is_post_type_archive('collections') ) {
+		if ( check_collection_landing() ) {
 			$tax = get_taxonomy('source');
 			include(locate_template('templates/collection-landing.php'));
 		}
@@ -325,7 +325,7 @@
 
 	add_action('before_achive', 'collections_landing_sidebar');
 	function collections_landing_sidebar() {
-		if ( is_post_type_archive('collections') ) {
+		if ( check_collection_landing() ) {
 			dynamic_sidebar('collections-landing');
 		}
 	}
@@ -609,7 +609,7 @@
 
     add_action('before_achive', 'collections_landing_intro');
     function collections_landing_intro() {
-    	if ( is_post_type_archive('collections') ) {
+    	if ( check_collection_landing() ) {
     		$page = get_page_by_title('collections');
     		echo apply_filters('the_content', $page->post_content);
     	}
@@ -650,4 +650,17 @@
 		return get_permalink($page->ID);
 	}
 
+/*  ==========================================================================
+    Check if it's a collection landing page or not
+    ========================================================================== */
+
+  function check_collection_landing() {
+    $keys = array('medium', 'time', 'tag', 'source');
+    foreach ($keys as $key) {
+      if ('' != get_query_var( $key ) ) {
+        return False;
+      }
+    }
+    return True;
+}
 
