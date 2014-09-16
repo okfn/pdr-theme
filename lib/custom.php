@@ -204,7 +204,7 @@
 
 	add_action('after_achive', 'show_pagination');
 	function show_pagination() {
-		if (!check_collection_landing())
+		if (!check_collection_landing() or !is_post_type_archive('collections'))
 			get_template_part('templates/pagination');
 	}
 
