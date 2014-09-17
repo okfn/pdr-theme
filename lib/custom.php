@@ -609,7 +609,7 @@
 
     add_action('before_achive', 'collections_landing_intro');
     function collections_landing_intro() {
-    	if ( check_collection_landing() ) {
+    	if ( check_collection_landing() && is_post_type_archive('collections')) {
     		$page = get_page_by_title('collections');
     		echo apply_filters('the_content', $page->post_content);
     	}
