@@ -662,5 +662,13 @@
       }
     }
     return True;
-}
+  }
+
+  function pdr_custom_feed($qv) {
+    if (isset($qv['feed']) && !isset($qv['post_type']))
+      $qv['post_type'] = array('post', 'collections');
+    return $qv;
+  }
+  add_filter('request', 'pdr_custom_feed');
+
 
