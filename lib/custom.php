@@ -409,13 +409,13 @@
 
         if ( $limit ) {
         	$excerpt = $post->post_excerpt ?
-	        	AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( $post->post_excerpt, $length, true, false, false), '', '&hellip;'.__('Continued', 'roots') ) :
+	        	Advanced_Excerpt::text_add_more( Advanced_Excerpt::text_excerpt( $post->post_excerpt, $length, true, false, false), '', '&hellip;'.__('Continued', 'roots') ) :
 	        	the_advanced_excerpt( array( 'use_words' => true, 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
         else {
         	$excerpt = $post->post_excerpt ?
-	        	AdvancedExcerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) :
+	        	Advanced_Excerpt::text_add_more( $post->post_excerpt, '', '&hellip;'.__('Continued', 'roots') ) :
 	        	the_advanced_excerpt( array( 'allowed_tags' => array(), 'length' => $length, 'read_more' => '&hellip;'.__('Continued', 'roots'), 'add_link' => true, 'ellipsis' => '' ), true )
         	;
         }
@@ -597,7 +597,7 @@
     function homepage_title_length($title) {
     	if ( !is_feature_item() ) {
     		if ( strlen($title) > 50 )
-	    		$title = AdvancedExcerpt::text_add_more( AdvancedExcerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
+	    		$title = Advanced_Excerpt::text_add_more( Advanced_Excerpt::text_excerpt( html_entity_decode($title, ENT_QUOTES, "UTF-8"), 50, false, false, false), '&hellip;', false );
 		}
     	return $title;
     }
